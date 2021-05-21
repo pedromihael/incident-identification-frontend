@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
     * {
@@ -13,13 +13,5 @@ export default createGlobalStyle`
         color: #212121;
         background: #f1f1f1;
         font-family: 'Nunito Sans', sans-serif;
-        ${(props) => {
-          return (
-            props.isScrollLocked &&
-            css`
-              overflow: hidden;
-            `
-          );
-        }}
     }
 `;

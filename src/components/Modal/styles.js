@@ -8,19 +8,21 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
+  height: 200vh;
 `;
 
 export const ModalContainer = styled.div`
-  height: 400px;
+  height: fit-content;
   width: 800px;
   border-radius: 16px;
   background-color: #f1f1f1;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.19), 0 8px 8px rgba(0, 0, 0, 0.23);
-  position: relative;
+  position: absolute;
+  top: 5%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 24px;
 `;
 
 export const CloseButton = styled.div`
@@ -70,7 +72,7 @@ export const ModalFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 20%;
 `;
 
 export const Button = styled.button`
@@ -87,5 +89,26 @@ export const Button = styled.button`
 
   &:hover {
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.22);
+  }
+`;
+
+export const Data = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DataItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 10px;
+
+  strong,
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    color: #212121;
   }
 `;

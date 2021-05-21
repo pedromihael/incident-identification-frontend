@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import close from '../../assets/close.svg';
 import header1 from '../../assets/cut1.jpg';
 import header2 from '../../assets/cut2.jpg';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -13,6 +14,8 @@ import {
   Description,
   ModalFooter,
   Button,
+  Data,
+  DataItem,
 } from './styles';
 
 const headers = [
@@ -51,9 +54,19 @@ export const Modal = (props) => {
         <ModalBody>
           <Title>{props.data.name}</Title>
           <Description>{props.data.description}</Description>
+          <Data>
+            {props.data.info.map((item, index) => (
+              <DataItem key={index}>
+                <strong>{item.key}: </strong>
+                <p>{item.value}</p>
+              </DataItem>
+            ))}
+          </Data>
         </ModalBody>
         <ModalFooter>
-          <Button>Register</Button>
+          <Link to='/incident-identification'>
+            <Button>Register</Button>
+          </Link>
         </ModalFooter>
       </ModalContainer>
     </Container>
