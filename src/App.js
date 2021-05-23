@@ -1,4 +1,5 @@
 import React from 'react';
+import Home from './pages/home';
 import Workflow from './pages/workflow';
 import IncidentIdentification from './pages/incident-identification';
 import SeverityRegistration from './pages/severity';
@@ -13,7 +14,8 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Switch>
-          <Route exact path='/workflow' component={Workflow} />
+          <Route exact path='/' component={Home} />
+          <Route path='/workflow' component={Workflow} />
           <Route path='/incident-identification' component={IncidentIdentification} />
           <Route path='/severity-registration' component={SeverityRegistration} />
           <Route path='/reliability' component={Reliability} />
