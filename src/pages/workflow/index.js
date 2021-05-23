@@ -1,6 +1,7 @@
 import { useCallback, useState, useMemo } from 'react';
 import { Container } from './styles';
 import { Modal } from '../../components/Modal';
+import { Header } from '../../components/Header';
 
 import flow from '../../assets/flow2.png';
 
@@ -110,48 +111,51 @@ function Home() {
   }, [activity]);
 
   return (
-    <Container className='App'>
-      <img src={flow} useMap='#image_map' />
-      <map name='image_map'>
-        <area
-          id='1'
-          alt='incident-identification'
-          title='incident-identification'
-          coords='219,181,375,265'
-          shape='rect'
-          onClick={() => toggleModal(1)}
-          onMouseOver={() => changeCursor(1)}
-        />
-        <area
-          id='2'
-          alt='incident-log'
-          title='incident-log'
-          coords='388,179,515,267'
-          shape='rect'
-          onClick={() => toggleModal(2)}
-          onMouseOver={() => changeCursor(2)}
-        />
-        <area
-          id='3'
-          alt='incident-categorization'
-          title='incident-categorization'
-          coords='530,181,666,267'
-          shape='rect'
-          onClick={() => toggleModal(3)}
-          onMouseOver={() => changeCursor(3)}
-        />
-        <area
-          id='4'
-          alt='severity-assignment'
-          title='severity-assignment'
-          coords='526,572,670,668'
-          shape='rect'
-          onClick={() => toggleModal(4)}
-          onMouseOver={() => changeCursor(4)}
-        />
-      </map>
-      {modalOpen && <Modal closeModal={() => setModalOpen(false)} data={activityInfo} hasButton={hasButton} />}
-    </Container>
+    <>
+      <Header title='Workflow' />
+      <Container className='App'>
+        <img src={flow} useMap='#image_map' />
+        <map name='image_map'>
+          <area
+            id='1'
+            alt='incident-identification'
+            title='incident-identification'
+            coords='219,181,375,265'
+            shape='rect'
+            onClick={() => toggleModal(1)}
+            onMouseOver={() => changeCursor(1)}
+          />
+          <area
+            id='2'
+            alt='incident-log'
+            title='incident-log'
+            coords='388,179,515,267'
+            shape='rect'
+            onClick={() => toggleModal(2)}
+            onMouseOver={() => changeCursor(2)}
+          />
+          <area
+            id='3'
+            alt='incident-categorization'
+            title='incident-categorization'
+            coords='530,181,666,267'
+            shape='rect'
+            onClick={() => toggleModal(3)}
+            onMouseOver={() => changeCursor(3)}
+          />
+          <area
+            id='4'
+            alt='severity-assignment'
+            title='severity-assignment'
+            coords='526,572,670,668'
+            shape='rect'
+            onClick={() => toggleModal(4)}
+            onMouseOver={() => changeCursor(4)}
+          />
+        </map>
+        {modalOpen && <Modal closeModal={() => setModalOpen(false)} data={activityInfo} hasButton={hasButton} />}
+      </Container>
+    </>
   );
 }
 

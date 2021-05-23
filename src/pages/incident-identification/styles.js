@@ -64,6 +64,7 @@ export const Button = styled.button`
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   margin-top: 20px;
+  font-weight: bold;
 
   &:hover {
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.22);
