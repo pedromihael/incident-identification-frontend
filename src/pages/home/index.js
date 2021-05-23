@@ -7,6 +7,7 @@ import flow from '../../assets/flow2.png';
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [activityInfo, setActivityInfo] = useState('');
+  const [activity, setActivity] = useState(0);
 
   const activitiesDescription = useMemo(() => {
     return [
@@ -14,57 +15,76 @@ function Home() {
         activity: 1,
         name: 'Incident Identification',
         info: [
-          { key: 'Inputs', value: 'Dummy' },
-          { key: 'Ouputs', value: 'Dummy' },
-          { key: 'Responsible', value: 'Me' },
-          { key: 'Participants', value: 'Anyone' },
-          { key: 'Required Artifacts', value: 'Dummy' },
-          { key: 'Produced Artifacts', value: 'Dummy' },
+          { key: 'Input Criteria', value: 'Evidence and detail data regarding the incident' },
+          { key: 'Ouput Criteria', value: 'The ticket is opened and identified as an incident' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'Service desk team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
         ],
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nisl urna. Donec ullamcorper sapien ac arcu ornare, ac ornare justo mollis. Mauris ut posuere leo, ultrices feugiat lacus. ',
+          'This activity aims to recognize and report the incident to the service desk team. Incidents come from users in whatever forms the organization allows. The service desk then decides if the issue is truly an incident or if it is another type of request.',
       },
       {
         activity: 2,
         name: 'Incident Logging',
         info: [
-          { key: 'Inputs', value: 'Dummy' },
-          { key: 'Ouputs', value: 'Dummy' },
-          { key: 'Responsible', value: 'Me' },
-          { key: 'Participants', value: 'Anyone' },
-          { key: 'Required Artifacts', value: 'Dummy' },
-          { key: 'Produced Artifacts', value: 'Dummy' },
+          { key: 'Input Criteria', value: 'The incident identification.' },
+          { key: 'Ouput Criteria', value: 'The incident data logged.' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'Service desk team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
         ],
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nisl urna. Donec ullamcorper sapien ac arcu ornare, ac ornare justo mollis. Mauris ut posuere leo, ultrices feugiat lacus. ',
+          'This activity aims to log the incident reported in a ticket system or other tool used by the organization. The ticket should contain information such as the user’s name, contact details, incident description, and other related details.',
       },
       {
         activity: 3,
         name: 'Incident Categorization',
         info: [
-          { key: 'Inputs', value: 'Dummy' },
-          { key: 'Ouputs', value: 'Dummy' },
-          { key: 'Responsible', value: 'Me' },
-          { key: 'Participants', value: 'Anyone' },
-          { key: 'Required Artifacts', value: 'Dummy' },
-          { key: 'Produced Artifacts', value: 'Dummy' },
+          { key: 'Input Criteria', value: 'The incident data logged' },
+          { key: 'Ouput Criteria', value: 'The incident data updated' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'Service desk team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
         ],
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nisl urna. Donec ullamcorper sapien ac arcu ornare, ac ornare justo mollis. Mauris ut posuere leo, ultrices feugiat lacus. ',
+          'This activity aims to classify the incident to determine how the issue has to be handled. It allows the service desk to sort and model incidents based on their categories and subcategories. Some of the issues may be automatically prioritized. The process makes it easier for the service desk team to track and identify the incidents.',
       },
       {
         activity: 4,
         name: 'Severity Assignment',
         info: [
-          { key: 'Inputs', value: 'Dummy' },
-          { key: 'Ouputs', value: 'Dummy' },
-          { key: 'Responsible', value: 'Me' },
-          { key: 'Participants', value: 'Anyone' },
-          { key: 'Required Artifacts', value: 'Dummy' },
-          { key: 'Produced Artifacts', value: 'Dummy' },
+          { key: 'Input Criteria', value: 'N/A' },
+          { key: 'Ouput Criteria', value: 'Incident assigned to a software project’s developer group' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'Sustaining developers team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'List of incidents with their severities' },
         ],
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id nisl urna. Donec ullamcorper sapien ac arcu ornare, ac ornare justo mollis. Mauris ut posuere leo, ultrices feugiat lacus. ',
+          'Accounting in the group of software project development team and verifying the incident severity. Severity can be reclassified into four domains:',
+        listItems: [
+          {
+            name: 'Low',
+            desc: ' - are those that do not interrupt users or the business and can be worked around;',
+          },
+          {
+            name: 'Medium',
+            desc: ' - affect a few staff and interrupt work to some degree;',
+          },
+
+          {
+            name: 'High',
+            desc: ' - affect a large number of users, interrupt business, and service delivery;',
+          },
+          {
+            name: 'Critical',
+            desc: ' - affect a large number of users and have financial losses and significant reputation damage. Besides, the correction may demand a huge operational work.',
+          },
+        ],
       },
     ];
   }, []);
@@ -75,6 +95,7 @@ function Home() {
 
   const toggleModal = useCallback((activity) => {
     const activityData = getActivityData(activity);
+    setActivity(activity);
     setActivityInfo(activityData);
     setModalOpen(true);
   }, []);
@@ -83,6 +104,10 @@ function Home() {
     const area = document.getElementById(activity);
     area.style.cursor = 'pointer';
   }, []);
+
+  const hasButton = useMemo(() => {
+    return activity === 4;
+  }, [activity]);
 
   return (
     <Container className='App'>
@@ -125,7 +150,7 @@ function Home() {
           onMouseOver={() => changeCursor(4)}
         />
       </map>
-      {modalOpen && <Modal closeModal={() => setModalOpen(false)} data={activityInfo} />}
+      {modalOpen && <Modal closeModal={() => setModalOpen(false)} data={activityInfo} hasButton={hasButton} />}
     </Container>
   );
 }

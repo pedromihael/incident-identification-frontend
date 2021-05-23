@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import close from '../../assets/close.svg';
 import header1 from '../../assets/cut1.jpg';
 import header2 from '../../assets/cut2.jpg';
@@ -38,10 +38,20 @@ const headers = [
 ];
 
 export const Modal = (props) => {
-  console.log('props', props);
   const header = useMemo(() => {
     return headers.find((item) => item.activity === props.data.activity);
   }, [props]);
+
+  useEffect(() => {
+    const closeModalByPressEscape = (e) => {
+      if (e.key === 'Escape') {
+        props.closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', closeModalByPressEscape, false);
+  }, []);
+
   return (
     <Container>
       <ModalContainer>
@@ -54,6 +64,16 @@ export const Modal = (props) => {
         <ModalBody>
           <Title>{props.data.name}</Title>
           <Description>{props.data.description}</Description>
+
+          {props.data.listItems &&
+            props.data.listItems.map((item) => (
+              <ul>
+                <li>
+                  <strong>{item.name}</strong>
+                  {item.desc}
+                </li>
+              </ul>
+            ))}
           <Data>
             {props.data.info.map((item, index) => (
               <DataItem key={index}>
@@ -63,11 +83,13 @@ export const Modal = (props) => {
             ))}
           </Data>
         </ModalBody>
-        <ModalFooter>
-          <Link to='/incident-identification'>
-            <Button>Register</Button>
-          </Link>
-        </ModalFooter>
+        {props.hasButton && (
+          <ModalFooter>
+            <Link to='/incident-identification'>
+              <Button>Register</Button>
+            </Link>
+          </ModalFooter>
+        )}
       </ModalContainer>
     </Container>
   );
