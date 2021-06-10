@@ -10,11 +10,11 @@ function Reliability() {
         <Title>Fill the fields to set reliability goals</Title>
         <FormContainer>
           <FormItem>
-            <Label for='projects-goal'>Reliability goal for projects</Label>
+            <Label for='projects-goal'>Global reliability goal for projects</Label>
             <Input name='projects-goal' placeholder='Enter a value...' />
           </FormItem>
           <FormItem>
-            <Label for='providers-goal'>Reliability goal for providers</Label>
+            <Label for='providers-goal'>Global reliability goal for providers</Label>
             <Input name='providers-goal' placeholder='Enter a value...' />
           </FormItem>
           <Button>Register</Button>

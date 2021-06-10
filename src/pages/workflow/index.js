@@ -65,6 +65,7 @@ function Home() {
           { key: 'Required Artifacts', value: 'N/A' },
           { key: 'Produced Artifacts', value: 'List of incidents with their severities' },
         ],
+        redirection: '/incident-identification',
         description:
           'Accounting in the group of software project development team and verifying the incident severity. Severity can be reclassified into four domains:',
         listItems: [
@@ -87,6 +88,21 @@ function Home() {
           },
         ],
       },
+      {
+        activity: 5,
+        name: 'Calculate Bugfree Goal',
+        info: [
+          { key: 'Input Criteria', value: 'N/A' },
+          { key: 'Ouput Criteria', value: 'Database updated' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'IT Management Team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
+        ],
+        redirection: '/calculate-bugfree',
+        description:
+          'This activity aims to define a reliability goal to be used in the software projects and IT software providers evaluation. It will also be used in the reliability formula.',
+      },
     ];
   }, []);
 
@@ -107,7 +123,7 @@ function Home() {
   }, []);
 
   const hasButton = useMemo(() => {
-    return activity === 4;
+    return activity === 4 || activity === 5;
   }, [activity]);
 
   return (
@@ -151,6 +167,15 @@ function Home() {
             shape='rect'
             onClick={() => toggleModal(4)}
             onMouseOver={() => changeCursor(4)}
+          />
+          <area
+            id='5'
+            alt='calculate-bugfree'
+            title='calculate-bugfree'
+            coords='531,954,653,1038'
+            shape='rect'
+            onClick={() => toggleModal(5)}
+            onMouseOver={() => changeCursor(5)}
           />
         </map>
         {modalOpen && <Modal closeModal={() => setModalOpen(false)} data={activityInfo} hasButton={hasButton} />}

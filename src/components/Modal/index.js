@@ -2,6 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import close from '../../assets/close.svg';
 import header1 from '../../assets/cut1.jpg';
 import header2 from '../../assets/cut2.jpg';
+import header3 from '../../assets/cut3.jpg';
 import { Link } from 'react-router-dom';
 
 import {
@@ -34,6 +35,10 @@ const headers = [
   {
     activity: 4,
     image: header2,
+  },
+  {
+    activity: 5,
+    image: header3,
   },
 ];
 
@@ -85,7 +90,7 @@ export const Modal = (props) => {
         </ModalBody>
         {props.hasButton && (
           <ModalFooter>
-            <Link to='/incident-identification'>
+            <Link to={props.data.redirection}>
               <Button>Register</Button>
             </Link>
           </ModalFooter>

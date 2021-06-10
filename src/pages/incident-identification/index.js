@@ -1,8 +1,10 @@
 import React from 'react';
+import { useConnection } from '../../hooks/useConnection';
 import { Header } from '../../components/Header';
 import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title } from './styles';
 
 function IncidentIdentification() {
+  const apiConnection = useConnection();
   return (
     <>
       <Header title='Incident Identification' />

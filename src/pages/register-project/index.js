@@ -16,7 +16,7 @@ function RegisterProject() {
             <Input name='responsible' placeholder='Enter a value...' />
             <Label for='reliability'>Project reliability percentage</Label>
             <Input name='reliability' placeholder='Enter a value...' />
-            <Label for='effort'>Project effort</Label>
+            <Label for='effort'>Project effort (hours)</Label>
             <Input name='effort' placeholder='Enter a value...' />
             <Label for='provider'>Provider</Label>
             <Select name='provider'>
