@@ -91,7 +91,7 @@ export const Modal = (props) => {
         {props.hasButton && (
           <ModalFooter>
             <Link to={props.data.redirection}>
-              <Button>Register</Button>
+              <Button>{/bugfree/.test(props.data.redirection) ? 'Calculate' : 'Register'}</Button>
             </Link>
           </ModalFooter>
         )}

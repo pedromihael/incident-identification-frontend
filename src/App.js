@@ -6,6 +6,7 @@ import SeverityRegistration from './pages/severity';
 import Reliability from './pages/reliability';
 import RegisterProject from './pages/register-project';
 import RegisterProvider from './pages/register-provider';
+import CalculateBugfree from './pages/calculate-bugfree';
 import GlobalStyles from './styles/global';
 
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
@@ -23,6 +24,7 @@ function App() {
           <Route path='/register-project' component={RegisterProject} />
           <Route path='/register-provider' component={RegisterProvider} />
           <Route path='/reliability' component={Reliability} />
+          <Route path='/calculate-bugfree' component={CalculateBugfree} />
         </Switch>
       </BrowserRouter>
     </>
