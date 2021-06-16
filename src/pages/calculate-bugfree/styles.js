@@ -12,6 +12,16 @@ export const Container = styled.div`
 
   table {
     width: 90vw;
+    th {
+      z-index: 1;
+    }
+
+    th,
+    td {
+      &:last-child {
+        padding-right: 24px;
+      }
+    }
   }
 `;
 

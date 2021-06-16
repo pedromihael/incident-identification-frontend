@@ -6,8 +6,9 @@ import SeverityRegistration from './pages/severity';
 import Reliability from './pages/reliability';
 import RegisterProject from './pages/register-project';
 import RegisterProvider from './pages/register-provider';
-import CalculateBugfree from './pages/calculate-bugfree';
 import GlobalStyles from './styles/global';
+import ProjectDetails from './pages/projectDetails';
+import { CalculateBugfree } from './pages/calculate-bugfree';
 
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
@@ -21,10 +22,11 @@ function App() {
           <Route path='/workflow' component={Workflow} />
           <Route path='/incident-identification' component={IncidentIdentification} />
           <Route path='/severity-registration' component={SeverityRegistration} />
-          <Route path='/register-project' component={RegisterProject} />
-          <Route path='/register-provider' component={RegisterProvider} />
+          <Route exact path='/register-project' component={RegisterProject} />
+          <Route exact path='/register-provider' component={RegisterProvider} />
           <Route path='/reliability' component={Reliability} />
-          <Route path='/calculate-bugfree' component={CalculateBugfree} />
+          <Route exact path='/calculate-bugfree' component={CalculateBugfree} />
+          <Route exact path='/projects/:id/details' component={ProjectDetails} />
         </Switch>
       </BrowserRouter>
     </>
