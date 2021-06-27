@@ -39,10 +39,13 @@ export const ReliabilityWrapper = styled.div`
   }
 `;
 
-export const BarWrapper = styled.div`
-  width: 50vw;
+export const SecondRow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 24px;
+
+  table {
+    width: 90vw;
+  }
 `;

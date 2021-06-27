@@ -1,22 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Bar } from 'react-chartjs-2';
-import { Container, CircularProgressbarWrapper, ReliabilityWrapper, FirstRow, BarWrapper } from './styles';
+import MaterialTable from 'material-table';
+import { Container, CircularProgressbarWrapper, ReliabilityWrapper, FirstRow, SecondRow } from './styles';
 
-const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
-};
+const columns = [
+  { title: 'Weight', field: 'weight' },
+  { title: 'Quantity', field: 'count' },
+];
 
 function ProjectDetails() {
   const location = useLocation();
@@ -31,35 +25,43 @@ function ProjectDetails() {
   const colorByReachedProportion = text < 95 ? '#FF9999' : '#3Cb043';
   const colorByReachedProportionProvider = textProvider < 98 ? '#FF9999' : '#3Cb043';
 
-  const getSortedIncidents = useCallback(() => {
+  const sorted = useMemo(() => {
     const { incidentsByProject } = location.state;
-    let sorted = [];
+    let array = [];
 
     const lows = incidentsByProject.find((incident) => incident.fk_severity === 1);
     const mediums = incidentsByProject.find((incident) => incident.fk_severity === 2);
     const highs = incidentsByProject.find((incident) => incident.fk_severity === 3);
     const criticals = incidentsByProject.find((incident) => incident.fk_severity === 4);
 
-    sorted[0] = lows ? lows.count : 0;
-    sorted[1] = mediums ? mediums.count : 0;
-    sorted[2] = highs ? highs.count : 0;
-    sorted[3] = criticals ? criticals.count : 0;
+    array[0] = lows ? lows.count : 0;
+    array[1] = mediums ? mediums.count : 0;
+    array[2] = highs ? highs.count : 0;
+    array[3] = criticals ? criticals.count : 0;
 
-    return sorted;
+    return array;
   }, []);
 
-  const data = {
-    labels: ['Low', 'Medium', 'High', 'Critical'],
-    datasets: [
+  const tableData = useMemo(() => {
+    return [
       {
-        label: 'Incidents',
-        data: getSortedIncidents(),
-        backgroundColor: ['#2c88d9', '#2c88d9', '#2c88d9', '#2c88d9'],
-        borderColor: ['#2c88d9', '#2c88d9', '#2c88d9', '#2c88d9'],
-        borderWidth: 1,
+        weight: 'Low',
+        count: sorted[0],
       },
-    ],
-  };
+      {
+        weight: 'Medium',
+        count: sorted[1],
+      },
+      {
+        weight: 'High',
+        count: sorted[2],
+      },
+      {
+        weight: 'Critical',
+        count: sorted[3],
+      },
+    ];
+  }, [sorted]);
 
   return (
     <>
@@ -67,7 +69,7 @@ function ProjectDetails() {
       <Container>
         <FirstRow>
           <ReliabilityWrapper>
-            <h4>Reached Project Reliability</h4>
+            <h4>Project Reliability</h4>
             <CircularProgressbarWrapper>
               <CircularProgressbar
                 value={text}
@@ -81,7 +83,7 @@ function ProjectDetails() {
             <span>Expected: 95% - Calculated: {percentage}%</span>
           </ReliabilityWrapper>
           <ReliabilityWrapper>
-            <h4>Reached Provider Reliability</h4>
+            <h4>Provider Reliability</h4>
             <CircularProgressbarWrapper>
               <CircularProgressbar
                 value={textProvider}
@@ -95,10 +97,9 @@ function ProjectDetails() {
             <span>Expected: 98% - Calculated: {providerPercentage}%</span>
           </ReliabilityWrapper>
         </FirstRow>
-        <BarWrapper>
-          <h4>Incidents in this project</h4>
-          <Bar data={data} options={options} />
-        </BarWrapper>
+        <SecondRow>
+          <MaterialTable columns={columns} data={tableData} title='Incidents in this Project' />
+        </SecondRow>
       </Container>
     </>
   );
