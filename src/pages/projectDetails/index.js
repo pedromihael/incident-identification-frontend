@@ -20,7 +20,7 @@ const options = {
 
 function ProjectDetails() {
   const location = useLocation();
-  const percentage = location.state.reliability;
+  const percentage = location.state.reliability_percentage;
   const reachedProportionProject = parseFloat((percentage / 95) * 100).toPrecision(3);
   const text = reachedProportionProject > 100 ? 100 : reachedProportionProject;
 
@@ -35,15 +35,15 @@ function ProjectDetails() {
     const { incidentsByProject } = location.state;
     let sorted = [];
 
-    const lows = incidentsByProject.find((incident) => incident.type === 1);
-    const mediums = incidentsByProject.find((incident) => incident.type === 5);
-    const highs = incidentsByProject.find((incident) => incident.type === 10);
-    const criticals = incidentsByProject.find((incident) => incident.type === 100);
+    const lows = incidentsByProject.find((incident) => incident.fk_severity === 1);
+    const mediums = incidentsByProject.find((incident) => incident.fk_severity === 2);
+    const highs = incidentsByProject.find((incident) => incident.fk_severity === 3);
+    const criticals = incidentsByProject.find((incident) => incident.fk_severity === 4);
 
-    sorted[0] = lows ? lows.quantity : 0;
-    sorted[1] = mediums ? mediums.quantity : 0;
-    sorted[2] = highs ? highs.quantity : 0;
-    sorted[3] = criticals ? criticals.quantity : 0;
+    sorted[0] = lows ? lows.count : 0;
+    sorted[1] = mediums ? mediums.count : 0;
+    sorted[2] = highs ? highs.count : 0;
+    sorted[3] = criticals ? criticals.count : 0;
 
     return sorted;
   }, []);

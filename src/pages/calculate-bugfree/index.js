@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useConnection } from '../../hooks/useConnection';
 import { useHistory } from 'react-router-dom';
 import { Header } from '../../components/Header';
-import projects from './utils/projects';
-import incidents from './utils/incidents';
 import MaterialTable from 'material-table';
 
 import { Container } from './styles';
@@ -10,21 +9,17 @@ import { Container } from './styles';
 const columns = [
   { title: 'Project', field: 'name' },
   { title: 'Responsible', field: 'responsible' },
-  { title: 'Effort (hours)', field: 'hour_effort' },
+  { title: 'Effort (hours)', field: 'hours_effort' },
   { title: 'Incidents', field: 'totalIncidents' },
   { title: 'IT Service Provider', field: 'fk_provider' },
-  { title: 'Reliability (%)', field: 'reliability' },
+  { title: 'Reliability (%)', field: 'reliability_percentage' },
 ];
 
 export const CalculateBugfree = () => {
   const history = useHistory();
+  const apiConnection = useConnection();
 
-  const [projectsReliability, setProjectsReliability] = useState([]);
-
-  const [incidentsByProject, setIncidentsByProject] = useState([]);
-  const [incidentGroupsByProject, setIncidentGroupsByProject] = useState([]);
-
-  const [groupedIncidents, setGroupedIncidents] = useState([]);
+  const [projectsData, setProjectsData] = useState([]);
 
   const handleRedirect = useCallback((data) => {
     history.push({
@@ -33,145 +28,48 @@ export const CalculateBugfree = () => {
     });
   }, []);
 
-  const getIncidentsWeightSum = useCallback(
-    (projectIncidents, projectID) => {
-      let incidentGroups = [];
+  useEffect(() => {
+    (async () => {
+      const projectsResult = await apiConnection.get('/project');
 
-      projectIncidents.forEach((incident) => {
-        const thisIncidentGroup = incidentGroups.find((group) => group.weight === incident.fk_severity);
-        const withoutCurrent = incidentGroups.filter((group) => group.weight !== incident.fk_severity);
+      const projectsAndIncidents = [];
+      if (projectsResult.data) {
+        const projects = projectsResult.data;
 
-        if (thisIncidentGroup) {
-          const { quantity, weight } = thisIncidentGroup;
-          incidentGroups = [...withoutCurrent, { weight, quantity: quantity + 1 }];
-        } else {
-          incidentGroups = [...withoutCurrent, { weight: incident.fk_severity, quantity: 1 }];
-        }
-      });
+        for await (const project of projects) {
+          const { fk_provider, hours_effort, id, name, reliability_percentage, responsible } = project;
 
-      const incidentsByProject = { project: projectID, incidents: incidentGroups };
+          const data = {
+            fk_provider,
+            hours_effort,
+            id,
+            name,
+            reliability_percentage,
+            responsible,
+            tableData: { id },
+          };
 
-      setIncidentGroupsByProject([...incidentGroupsByProject, incidentsByProject]);
+          const providersResult = await apiConnection.get(`/provider/${fk_provider}`);
 
-      const incidentSums = incidentGroups.map((group) => {
-        const product = group.quantity * group.weight;
-        return product;
-      });
+          if (providersResult.data) {
+            const provider = providersResult.data;
+            Object.assign(data, { providerReliability: provider.reliability_percentage });
+          }
 
-      const totalSum = incidentSums.reduce((previousValue, currentValue) => previousValue + currentValue);
+          const incidentsResult = await apiConnection.get(`/incident/projects/${id}`);
 
-      return totalSum;
-    },
-    [projects, incidents],
-  );
+          if (incidentsResult.data) {
+            const incidents = incidentsResult.data;
+            Object.assign(data, { incidentsByProject: incidents.groups, totalIncidents: incidents.total });
+          }
 
-  const getIncidentsByProject = useCallback((projectID) => {
-    let incidentTypesAndQuantities = [];
-
-    incidents.forEach((incident) => {
-      if (incident.fk_project === projectID) {
-        const incidentGroup = incidentTypesAndQuantities.find((group) => group.type === incident.fk_severity);
-        if (incidentGroup) {
-          const { quantity } = incidentGroup;
-          const newQuantityObject = Object.assign(incidentGroup, { quantity: quantity + 1 });
-          const withoutMine = incidentTypesAndQuantities.filter((group) => group.type !== incident.fk_severity);
-
-          incidentTypesAndQuantities = [...withoutMine, newQuantityObject];
-        } else {
-          incidentTypesAndQuantities = [...incidentTypesAndQuantities, { type: incident.fk_severity, quantity: 1 }];
+          projectsAndIncidents.push(data);
         }
       }
-    });
 
-    return incidentTypesAndQuantities;
+      setProjectsData(projectsAndIncidents);
+    })();
   }, []);
-
-  const getProviderReliability = useCallback((providerID) => {
-    let effortsAndReliabilities = [];
-
-    projects.forEach((project) => {
-      if (project.fk_provider === providerID) {
-        const reliability = parseFloat(getReliability(project.id));
-        effortsAndReliabilities.push({ effort: project.hour_effort, reliability });
-      }
-    });
-
-    const reliabilityPerEffortSum =
-      effortsAndReliabilities.length > 1
-        ? effortsAndReliabilities.reduce((prev, curr) => {
-            return prev.effort * prev.reliability + curr.effort * curr.reliability;
-          })
-        : effortsAndReliabilities[0].reliability * effortsAndReliabilities[0].effort;
-
-    const totalEffort =
-      effortsAndReliabilities.length > 1
-        ? effortsAndReliabilities.reduce((prev, curr) => {
-            return prev.effort + curr.effort;
-          })
-        : effortsAndReliabilities[0].effort;
-
-    return reliabilityPerEffortSum / totalEffort;
-  }, []);
-
-  const getReliability = useCallback(
-    (projectID) => {
-      const project = projects.find((project) => project.id === projectID);
-
-      const { hour_effort } = project;
-
-      const projectIncidents = incidents.filter((incident) => incident.fk_project === projectID);
-
-      const incidentsSum = getIncidentsWeightSum(projectIncidents, project.id);
-
-      const quocient = incidentsSum / hour_effort;
-
-      const reliabilityPercentage = (1 - quocient) * 100;
-
-      const reliabilityFloor = reliabilityPercentage >= 0 ? reliabilityPercentage : 0;
-
-      return reliabilityFloor.toPrecision(3);
-    },
-    [projects, incidents],
-  );
-
-  const getTotalIncidetsByProject = useCallback(
-    (projectID) => {
-      const found = incidentsByProject.find((incident) => incident.project === projectID);
-      return found ? found.quantity : 0;
-    },
-    [incidentsByProject],
-  );
-
-  useEffect(() => {
-    let incidentGroups = [];
-
-    incidents.forEach((incident) => {
-      const thisIncidentGroup = incidentGroups.find((group) => group.project === incident.fk_project);
-      const withoutCurrent = incidentGroups.filter((group) => group.project !== incident.fk_project);
-
-      if (thisIncidentGroup) {
-        const { quantity, project } = thisIncidentGroup;
-        incidentGroups = [...withoutCurrent, { project, quantity: quantity + 1 }];
-      } else {
-        incidentGroups = [...withoutCurrent, { project: incident.fk_project, quantity: 1 }];
-      }
-    });
-
-    setIncidentsByProject(incidentGroups);
-    // setGroupedIncidents;
-  }, [projects, incidents]);
-
-  useEffect(() => {
-    const calculated = projects.map((project) => {
-      const reliability = getReliability(project.id);
-      const providerReliability = getProviderReliability(project.fk_provider);
-      const totalIncidents = getTotalIncidetsByProject(project.id);
-      const incidentsByProj = getIncidentsByProject(project.id);
-      return { ...project, reliability, totalIncidents, providerReliability, incidentsByProject: incidentsByProj };
-    });
-
-    setProjectsReliability(calculated);
-  }, [incidentsByProject, projects]);
 
   return (
     <>
@@ -179,7 +77,7 @@ export const CalculateBugfree = () => {
       <Container>
         <MaterialTable
           columns={columns}
-          data={projectsReliability}
+          data={projectsData}
           title='Projects Reliability - Global goal: 95%'
           actions={[
             {
