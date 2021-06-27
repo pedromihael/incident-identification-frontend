@@ -12,6 +12,7 @@ const columns = [
   { title: 'Responsible', field: 'responsible' },
   { title: 'Effort (hours)', field: 'hour_effort' },
   { title: 'Incidents', field: 'totalIncidents' },
+  { title: 'IT Service Provider', field: 'fk_provider' },
   { title: 'Reliability (%)', field: 'reliability' },
 ];
 

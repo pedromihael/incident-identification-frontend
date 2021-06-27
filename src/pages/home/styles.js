@@ -20,6 +20,11 @@ export const LeftContainer = styled.section`
   h3 {
     width: 70%;
   }
+
+  p {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
 `;
 
 export const RightContainer = styled.section`

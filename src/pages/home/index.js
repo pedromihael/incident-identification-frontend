@@ -7,13 +7,16 @@ export default function Home() {
   return (
     <Container>
       <LeftContainer>
-        <h1>Welcome to Incident Identification tool</h1>
-        <h3>Register Projects and Providers, control Incidents and it's Severities, and set Reliability goals.</h3>
-        <p>{`First of all, choose an option:`}</p>
+        <h1>Welcome to Proprietary Software Ecosystem Reliability tool</h1>
+        <h3>Register projects and IT service providers, manage incidents and severities, and set reliability goals.</h3>
+        <p>Choose the overview option</p>
         <ButtonGroup>
           <Link to='/workflow'>
             <Button>See the Workflow</Button>
           </Link>
+        </ButtonGroup>
+        <p>Or other shortcuts options below:</p>
+        <ButtonGroup>
           <Link to='/register-provider'>
             <Button>Register Provider</Button>
           </Link>

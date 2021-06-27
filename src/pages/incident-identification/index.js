@@ -9,7 +9,7 @@ function IncidentIdentification() {
     <>
       <Header title='Incident Identification' />
       <Container>
-        <Title>Fill the fields to register an incident</Title>
+        <Title>Fill the fields to register an incident in a software project</Title>
         <FormContainer>
           <FormItem>
             <Label for='incident-number'>Incident number</Label>

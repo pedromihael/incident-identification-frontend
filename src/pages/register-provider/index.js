@@ -12,9 +12,6 @@ function RegisterProvider() {
           <FormItem>
             <Label for='name'>Provider name</Label>
             <Input name='name' placeholder='Enter a value...' />
-
-            <Label for='reliability'>Provider reliability percentage</Label>
-            <Input name='reliability' placeholder='Enter a value...' />
           </FormItem>
           <Button>Register</Button>
         </FormContainer>

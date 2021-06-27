@@ -3,7 +3,7 @@ import { Container } from './styles';
 import { Modal } from '../../components/Modal';
 import { Header } from '../../components/Header';
 
-import flow from '../../assets/flow2.png';
+import flow from '../../assets/flow-resized.jpg';
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -136,7 +136,7 @@ function Home() {
             id='1'
             alt='incident-identification'
             title='incident-identification'
-            coords='219,181,375,265'
+            coords='226,190,364,276'
             shape='rect'
             onClick={() => toggleModal(1)}
             onMouseOver={() => changeCursor(1)}
@@ -145,7 +145,7 @@ function Home() {
             id='2'
             alt='incident-log'
             title='incident-log'
-            coords='388,179,515,267'
+            coords='383,187,509,275'
             shape='rect'
             onClick={() => toggleModal(2)}
             onMouseOver={() => changeCursor(2)}
@@ -154,7 +154,7 @@ function Home() {
             id='3'
             alt='incident-categorization'
             title='incident-categorization'
-            coords='530,181,666,267'
+            coords='533,188,660,278'
             shape='rect'
             onClick={() => toggleModal(3)}
             onMouseOver={() => changeCursor(3)}
@@ -163,7 +163,7 @@ function Home() {
             id='4'
             alt='severity-assignment'
             title='severity-assignment'
-            coords='526,572,670,668'
+            coords='538,593,661,676'
             shape='rect'
             onClick={() => toggleModal(4)}
             onMouseOver={() => changeCursor(4)}
@@ -172,7 +172,7 @@ function Home() {
             id='5'
             alt='calculate-bugfree'
             title='calculate-bugfree'
-            coords='531,954,653,1038'
+            coords='535,976,666,1058'
             shape='rect'
             onClick={() => toggleModal(5)}
             onMouseOver={() => changeCursor(5)}
