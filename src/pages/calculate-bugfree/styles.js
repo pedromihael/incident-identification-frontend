@@ -9,6 +9,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
 
   table {
     width: 90vw;

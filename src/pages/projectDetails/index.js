@@ -21,15 +21,15 @@ const options = {
 function ProjectDetails() {
   const location = useLocation();
   const percentage = location.state.reliability_percentage;
-  const reachedProportionProject = parseFloat((percentage / 95) * 100).toPrecision(3);
+  const reachedProportionProject = parseFloat(percentage).toPrecision(3);
   const text = reachedProportionProject > 100 ? 100 : reachedProportionProject;
 
   const providerPercentage = location.state.providerReliability;
-  const reachedProportionProvider = parseFloat((providerPercentage / 98) * 100).toPrecision(3);
+  const reachedProportionProvider = parseFloat(providerPercentage).toPrecision(3);
   const textProvider = reachedProportionProvider > 100 ? 100 : reachedProportionProvider;
 
-  const colorByReachedProportion = text < 100 ? '#FF9999' : '#3Cb043';
-  const colorByReachedProportionProvider = textProvider < 100 ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportion = text < 95 ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportionProvider = textProvider < 98 ? '#FF9999' : '#3Cb043';
 
   const getSortedIncidents = useCallback(() => {
     const { incidentsByProject } = location.state;
