@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, createRef } from 'react';
+import React, { useCallback, useState, createRef } from 'react';
 import { useConnection } from '../../hooks/useConnection';
 import { Header } from '../../components/Header';
 import { Container, FormContainer, Input, Label, FormItem, Button, Title, RegisterResult } from './styles';

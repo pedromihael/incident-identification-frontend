@@ -16,6 +16,10 @@ const tabs = [
     pathname: '/register-provider',
   },
   {
+    name: 'Register Severity',
+    pathname: '/severity-registration',
+  },
+  {
     name: 'Set Reliability Goals',
     pathname: '/reliability',
   },

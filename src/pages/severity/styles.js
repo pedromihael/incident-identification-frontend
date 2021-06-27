@@ -60,3 +60,22 @@ export const Button = styled.button`
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.22);
   }
 `;
+
+export const RegisterResult = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: ${(props) => (props.success ? '#3Cb043' : '#FF0000')};
+  font-size: 12px;
+  margin-top: 16px;
+`;
+
+export const Select = styled.select`
+  padding: 10px 5px;
+  border: none;
+  border-bottom: 1px solid #313131;
+  width: 520px;
+  background: #dadada;
+  border-radius: 8px;
+  margin-bottom: 10px;
+`;
