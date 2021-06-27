@@ -28,7 +28,6 @@ export const Header = ({ title = 'Incident Identification' }) => {
   useEffect(() => {
     const { location } = history;
     tabs.map((tab) => {
-      console.log(location.pathname === tab.pathname);
       location.pathname === tab.pathname && setActiveTab(tab);
     });
   }, [history]);
