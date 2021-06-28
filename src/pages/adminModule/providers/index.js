@@ -7,23 +7,15 @@ import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title
 const fields = [
   {
     id: 'name',
-    name: 'Project Name',
-  },
-  {
-    id: 'responsible',
-    name: 'Responsible',
-  },
-  {
-    id: 'hours_effort',
-    name: 'Effort (in hours)',
+    name: 'Provider Name',
   },
 ];
 
-function Projects() {
+function Providers() {
   const location = useLocation();
   const apiConnection = useConnection();
 
-  const [projects, setProjects] = useState([]);
+  const [providers, setProviders] = useState([]);
   const [registerSucess, setRegisterSucess] = useState({
     text: '',
   });
@@ -39,7 +31,7 @@ function Projects() {
       value: valueRef.current.value,
     };
 
-    const response = await apiConnection.put(`/project`, payload);
+    const response = await apiConnection.put(`/provider`, payload);
 
     if (response.data.ok) {
       setRegisterSucess({ text: 'Editado com sucesso!', success: true });
@@ -55,12 +47,12 @@ function Projects() {
   const handleDeletion = useCallback(async () => {
     const id = idRef.current.value;
 
-    const response = await apiConnection.delete(`/project/${id}`);
+    const response = await apiConnection.delete(`/provider/${id}`);
 
     if (response.data.ok) {
       setRegisterSucess({ text: 'Deletado com sucesso!', success: true });
-      const newData = projects.filter((project) => project.id !== id);
-      setProjects(newData);
+      const newData = providers.filter((provider) => provider.id !== id);
+      setProviders(newData);
     } else {
       setRegisterSucess({
         text: 'Opa, algo deu errado! Confira seus dados certinho e tente denovo',
@@ -75,29 +67,29 @@ function Projects() {
 
   useEffect(() => {
     (async () => {
-      const response = await apiConnection.get('/project');
+      const response = await apiConnection.get('/provider');
       if (response.data) {
-        setProjects(response.data);
+        setProviders(response.data);
       }
     })();
   }, []);
 
   return (
     <>
-      <AdminHeader title='Edit Projects' />
+      <AdminHeader title='Edit It Service Providers' />
       <Container>
-        <Title>Edit projects information</Title>
+        <Title>Edit IT Service Providers information</Title>
         <FormContainer>
           <FormItem>
-            <Label htmlFor='project'>Project</Label>
-            <Select ref={idRef} name='project'>
-              {projects.map((project, index) => (
+            <Label htmlFor='provider'>Provider</Label>
+            <Select ref={idRef} name='provider'>
+              {providers.map((item, index) => (
                 <option
                   key={index}
-                  value={project.id}
-                  selected={location.state?.name ? project.name === location.state.name : false}
+                  value={item.id}
+                  selected={location.state?.name ? item.name === location.state.name : false}
                 >
-                  {project.name}
+                  {item.name}
                 </option>
               ))}
             </Select>
@@ -127,4 +119,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default Providers;

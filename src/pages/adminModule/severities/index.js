@@ -7,23 +7,19 @@ import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title
 const fields = [
   {
     id: 'name',
-    name: 'Project Name',
+    name: 'Severity Name',
   },
   {
-    id: 'responsible',
-    name: 'Responsible',
-  },
-  {
-    id: 'hours_effort',
-    name: 'Effort (in hours)',
+    id: 'weight',
+    name: 'Severity Weight',
   },
 ];
 
-function Projects() {
+function Severities() {
   const location = useLocation();
   const apiConnection = useConnection();
 
-  const [projects, setProjects] = useState([]);
+  const [severities, setSeverities] = useState([]);
   const [registerSucess, setRegisterSucess] = useState({
     text: '',
   });
@@ -39,7 +35,7 @@ function Projects() {
       value: valueRef.current.value,
     };
 
-    const response = await apiConnection.put(`/project`, payload);
+    const response = await apiConnection.put(`/severity`, payload);
 
     if (response.data.ok) {
       setRegisterSucess({ text: 'Editado com sucesso!', success: true });
@@ -52,52 +48,31 @@ function Projects() {
     }, 2000);
   }, [idRef, fieldRef, valueRef]);
 
-  const handleDeletion = useCallback(async () => {
-    const id = idRef.current.value;
-
-    const response = await apiConnection.delete(`/project/${id}`);
-
-    if (response.data.ok) {
-      setRegisterSucess({ text: 'Deletado com sucesso!', success: true });
-      const newData = projects.filter((project) => project.id !== id);
-      setProjects(newData);
-    } else {
-      setRegisterSucess({
-        text: 'Opa, algo deu errado! Confira seus dados certinho e tente denovo',
-        success: false,
-      });
-    }
-
-    setTimeout(() => {
-      setRegisterSucess({ text: '' });
-    }, 2000);
-  }, [idRef]);
-
   useEffect(() => {
     (async () => {
-      const response = await apiConnection.get('/project');
+      const response = await apiConnection.get('/severity');
       if (response.data) {
-        setProjects(response.data);
+        setSeverities(response.data);
       }
     })();
   }, []);
 
   return (
     <>
-      <AdminHeader title='Edit Projects' />
+      <AdminHeader title='Edit Severities' />
       <Container>
-        <Title>Edit projects information</Title>
+        <Title>Edit Severities information</Title>
         <FormContainer>
           <FormItem>
-            <Label htmlFor='project'>Project</Label>
-            <Select ref={idRef} name='project'>
-              {projects.map((project, index) => (
+            <Label htmlFor='severity'>Severity (weight - name)</Label>
+            <Select ref={idRef} name='severity'>
+              {severities.map((item, index) => (
                 <option
                   key={index}
-                  value={project.id}
-                  selected={location.state?.name ? project.name === location.state.name : false}
+                  value={item.id}
+                  selected={location.state?.name ? item.name === location.state.name : false}
                 >
-                  {project.name}
+                  {item.weight} - {item.name}
                 </option>
               ))}
             </Select>
@@ -115,9 +90,7 @@ function Projects() {
           <Button kind='update' onClick={handleRegistration}>
             Update
           </Button>
-          <Button kind='delete' onClick={handleDeletion}>
-            Delete
-          </Button>
+
           <RegisterResult success={registerSucess.success}>
             <span>{registerSucess.text}</span>
           </RegisterResult>
@@ -127,4 +100,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default Severities;

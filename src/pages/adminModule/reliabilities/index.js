@@ -7,23 +7,19 @@ import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title
 const fields = [
   {
     id: 'name',
-    name: 'Project Name',
+    name: 'Reliability target',
   },
   {
-    id: 'responsible',
-    name: 'Responsible',
-  },
-  {
-    id: 'hours_effort',
-    name: 'Effort (in hours)',
+    id: 'meta_percent',
+    name: 'Reliability global goal (%)',
   },
 ];
 
-function Projects() {
+function Reliabilities() {
   const location = useLocation();
   const apiConnection = useConnection();
 
-  const [projects, setProjects] = useState([]);
+  const [reliabilities, setReliabilities] = useState([]);
   const [registerSucess, setRegisterSucess] = useState({
     text: '',
   });
@@ -39,7 +35,7 @@ function Projects() {
       value: valueRef.current.value,
     };
 
-    const response = await apiConnection.put(`/project`, payload);
+    const response = await apiConnection.put(`/reliability`, payload);
 
     if (response.data.ok) {
       setRegisterSucess({ text: 'Editado com sucesso!', success: true });
@@ -55,12 +51,12 @@ function Projects() {
   const handleDeletion = useCallback(async () => {
     const id = idRef.current.value;
 
-    const response = await apiConnection.delete(`/project/${id}`);
+    const response = await apiConnection.delete(`/reliability/${id}`);
 
     if (response.data.ok) {
       setRegisterSucess({ text: 'Deletado com sucesso!', success: true });
-      const newData = projects.filter((project) => project.id !== id);
-      setProjects(newData);
+      const newData = reliabilities.filter((reliability) => reliability.id !== id);
+      setReliabilities(newData);
     } else {
       setRegisterSucess({
         text: 'Opa, algo deu errado! Confira seus dados certinho e tente denovo',
@@ -75,29 +71,29 @@ function Projects() {
 
   useEffect(() => {
     (async () => {
-      const response = await apiConnection.get('/project');
+      const response = await apiConnection.get('/reliability');
       if (response.data) {
-        setProjects(response.data);
+        setReliabilities(response.data);
       }
     })();
   }, []);
 
   return (
     <>
-      <AdminHeader title='Edit Projects' />
+      <AdminHeader title='Edit Global Reliabilities' />
       <Container>
-        <Title>Edit projects information</Title>
+        <Title>Edit Global Reliabilities information</Title>
         <FormContainer>
           <FormItem>
-            <Label htmlFor='project'>Project</Label>
-            <Select ref={idRef} name='project'>
-              {projects.map((project, index) => (
+            <Label htmlFor='reliabilities'>Target</Label>
+            <Select ref={idRef} name='reliabilities'>
+              {reliabilities.map((item, index) => (
                 <option
                   key={index}
-                  value={project.id}
-                  selected={location.state?.name ? project.name === location.state.name : false}
+                  value={item.id}
+                  selected={location.state?.name ? item.name === location.state.name : false}
                 >
-                  {project.name}
+                  {item.name}
                 </option>
               ))}
             </Select>
@@ -127,4 +123,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default Reliabilities;

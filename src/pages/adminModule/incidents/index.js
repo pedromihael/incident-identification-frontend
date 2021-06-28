@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, createRef } from 'react';
 import { useConnection } from '../../../hooks/useConnection';
 import { AdminHeader } from '../../../components/AdminHeader';
-import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from './styles';
+import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from '../styles';
 
 function Incidents() {
   const apiConnection = useConnection();

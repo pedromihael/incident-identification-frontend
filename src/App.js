@@ -12,8 +12,11 @@ import { CalculateBugfree } from './pages/calculate-bugfree';
 
 import Incidents from './pages/adminModule/incidents';
 import Projects from './pages/adminModule/projects';
+import Providers from './pages/adminModule/providers';
 
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
+import Reliabilities from './pages/adminModule/reliabilities';
+import Severities from './pages/adminModule/severities';
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
 
           <Route exact path='/admin/incidents' component={Incidents} />
           <Route exact path='/admin/projects' component={Projects} />
+          <Route exact path='/admin/providers' component={Providers} />
+          <Route exact path='/admin/reliabilities' component={Reliabilities} />
+          <Route exact path='/admin/severities' component={Severities} />
         </Switch>
       </BrowserRouter>
     </>
