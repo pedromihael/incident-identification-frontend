@@ -4,15 +4,15 @@ import { Container, ButtonsGroup, Button } from './styles';
 
 const tabs = [
   {
-    name: 'Incidents',
-    pathname: '/admin/incidents',
-  },
-  {
     name: 'Projects',
     pathname: '/admin/projects',
   },
   {
-    name: 'Providers',
+    name: 'Incidents',
+    pathname: '/admin/incidents',
+  },
+  {
+    name: 'It Service Providers',
     pathname: '/admin/providers',
   },
   {

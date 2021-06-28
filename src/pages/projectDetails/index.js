@@ -1,15 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { Bar } from 'react-chartjs-2';
 import MaterialTable from 'material-table';
 import { Container, CircularProgressbarWrapper, ReliabilityWrapper, FirstRow, SecondRow } from './styles';
 
 const columns = [
   { title: 'Weight', field: 'weight' },
   { title: 'Quantity', field: 'count' },
+];
+
+const detailedColumns = [
+  { title: 'Id', field: 'id' },
+  { title: 'Weight', field: 'name' },
+  { title: 'Description', field: 'description' },
 ];
 
 function ProjectDetails() {
@@ -63,9 +68,13 @@ function ProjectDetails() {
     ];
   }, [sorted]);
 
+  const detailedTableData = useMemo(() => {
+    return location.state.detailedIncidents;
+  }, []);
+
   return (
     <>
-      <Header title={`Details of ${location.state.name}`} />
+      <Header title={`Details of project`} />
       <Container>
         <FirstRow>
           <ReliabilityWrapper>
@@ -83,7 +92,7 @@ function ProjectDetails() {
             <span>Expected: 95% - Calculated: {percentage}%</span>
           </ReliabilityWrapper>
           <ReliabilityWrapper>
-            <h4>Provider Reliability</h4>
+            <h4>It Service Provider Reliability</h4>
             <CircularProgressbarWrapper>
               <CircularProgressbar
                 value={textProvider}
@@ -98,7 +107,14 @@ function ProjectDetails() {
           </ReliabilityWrapper>
         </FirstRow>
         <SecondRow>
-          <MaterialTable columns={columns} data={tableData} title='Incidents in this Project' />
+          <MaterialTable columns={columns} data={tableData} title='Quantity of Incidents in this Project' />
+        </SecondRow>
+        <SecondRow>
+          <MaterialTable
+            columns={detailedColumns}
+            data={detailedTableData}
+            title='Detailed Incidents in this Project'
+          />
         </SecondRow>
       </Container>
     </>

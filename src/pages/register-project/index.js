@@ -58,7 +58,7 @@ function RegisterProject() {
             <Label htmlFor='effort'>Project effort (hours)</Label>
             <Input ref={effortRef} name='effort' placeholder='Enter a value...' />
 
-            <Label htmlFor='provider'>Provider</Label>
+            <Label htmlFor='provider'>It Service Provider</Label>
             <Select ref={providerRef} name='provider'>
               {providers.map((provider, index) => (
                 <option key={index} value={provider.id}>

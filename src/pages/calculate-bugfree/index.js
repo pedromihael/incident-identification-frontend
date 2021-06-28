@@ -36,6 +36,13 @@ export const CalculateBugfree = () => {
     });
   }, []);
 
+  const handleRedirectToAdmin = useCallback((data) => {
+    history.push({
+      pathname: `/admin/projects`,
+      state: data,
+    });
+  }, []);
+
   const handleProjectsFetch = useCallback(async () => {
     const projectsResult = await apiConnection.get('/project');
 
@@ -68,6 +75,13 @@ export const CalculateBugfree = () => {
         if (incidentsResult.data) {
           const incidents = incidentsResult.data;
           Object.assign(data, { incidentsByProject: incidents.groups, totalIncidents: incidents.total });
+        }
+
+        const detailedIncidentsResult = await apiConnection.get(`/incident/projects/${id}/detailed`);
+
+        if (detailedIncidentsResult.data) {
+          const detailed = detailedIncidentsResult.data;
+          Object.assign(data, { detailedIncidents: detailed });
         }
 
         projectsAndIncidents.push(data);
@@ -119,7 +133,7 @@ export const CalculateBugfree = () => {
             {
               icon: 'edit',
               tooltip: 'Edit',
-              onClick: (event, rowData) => handleRedirect({ ...rowData }),
+              onClick: (event, rowData) => handleRedirectToAdmin({ ...rowData }),
             },
           ]}
           options={{

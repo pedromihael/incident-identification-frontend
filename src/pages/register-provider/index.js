@@ -28,12 +28,12 @@ function RegisterProvider() {
 
   return (
     <>
-      <Header title='Provider Registration' />
+      <Header title='It Service Provider Registration' />
       <Container>
         <Title>Fill the fields to register a provider</Title>
         <FormContainer>
           <FormItem>
-            <Label htmlFor='name'>Provider name</Label>
+            <Label htmlFor='name'>It Service Provider name</Label>
             <Input ref={nameRef} name='name' placeholder='Enter a value...' />
           </FormItem>
           <Button onClick={handleRegistration}>Register</Button>

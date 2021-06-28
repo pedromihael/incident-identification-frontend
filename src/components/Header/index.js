@@ -12,7 +12,7 @@ const tabs = [
     pathname: '/register-project',
   },
   {
-    name: 'Register Provider',
+    name: 'Register It Service Provider',
     pathname: '/register-provider',
   },
   {

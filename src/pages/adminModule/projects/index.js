@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, createRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useConnection } from '../../../hooks/useConnection';
 import { AdminHeader } from '../../../components/AdminHeader';
 import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from './styles';
@@ -19,6 +20,7 @@ const fields = [
 ];
 
 function Projects() {
+  const location = useLocation();
   const apiConnection = useConnection();
 
   const [projects, setProjects] = useState([]);
@@ -80,6 +82,8 @@ function Projects() {
     })();
   }, []);
 
+  console.log('location.state.name', location.state.name);
+
   return (
     <>
       <AdminHeader title='Edit Projects' />
@@ -90,7 +94,7 @@ function Projects() {
             <Label htmlFor='project'>Project</Label>
             <Select ref={idRef} name='project'>
               {projects.map((project, index) => (
-                <option key={index} value={project.id}>
+                <option key={index} value={project.id} selected={project.name === location.state.name}>
                   {project.name}
                 </option>
               ))}

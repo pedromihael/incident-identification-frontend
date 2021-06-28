@@ -15,10 +15,10 @@ export default function Home() {
             <Button>See the Workflow</Button>
           </Link>
         </ButtonGroup>
-        <p>Or other shortcuts options below:</p>
+        <p>Or choose other shortcuts options below:</p>
         <ButtonGroup>
           <Link to='/register-provider'>
-            <Button>Register Provider</Button>
+            <Button>Register It Service Provider</Button>
           </Link>
           <Link to='/register-project'>
             <Button>Register Project</Button>
@@ -28,6 +28,12 @@ export default function Home() {
           </Link>
           <Link to='/reliability'>
             <Button>Set Reliability Goals</Button>
+          </Link>
+        </ButtonGroup>
+        <p>Or manage important info</p>
+        <ButtonGroup>
+          <Link to='/admin/projects'>
+            <Button>Access Admin</Button>
           </Link>
         </ButtonGroup>
       </LeftContainer>

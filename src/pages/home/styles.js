@@ -13,7 +13,7 @@ export const LeftContainer = styled.section`
   padding: 24px 42px;
 
   h1 {
-    font-size: 52px;
+    font-size: 40px;
     color: #2c88d9;
   }
 
