@@ -10,6 +10,9 @@ import GlobalStyles from './styles/global';
 import ProjectDetails from './pages/projectDetails';
 import { CalculateBugfree } from './pages/calculate-bugfree';
 
+import Incidents from './pages/adminModule/incidents';
+import Projects from './pages/adminModule/projects';
+
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
           <Route path='/reliability' component={Reliability} />
           <Route exact path='/calculate-bugfree' component={CalculateBugfree} />
           <Route exact path='/projects/:id/details' component={ProjectDetails} />
+
+          <Route exact path='/admin/incidents' component={Incidents} />
+          <Route exact path='/admin/projects' component={Projects} />
         </Switch>
       </BrowserRouter>
     </>

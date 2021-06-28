@@ -86,7 +86,7 @@ export const CalculateBugfree = () => {
 
       providers.forEach((provider) => {
         const { id, name, reliability_percentage } = provider;
-        const projects = projectsData.filter((project) => project.fk_provider === provider.id);
+        const projects = projectsData.filter((project) => project.fk_provider === id);
 
         providersAndProjects.push({ id, name, reliability_percentage, projects: projects.length });
       });
@@ -116,6 +116,11 @@ export const CalculateBugfree = () => {
               tooltip: 'See Details',
               onClick: (event, rowData) => handleRedirect({ ...rowData }),
             },
+            {
+              icon: 'edit',
+              tooltip: 'Edit',
+              onClick: (event, rowData) => handleRedirect({ ...rowData }),
+            },
           ]}
           options={{
             actionsColumnIndex: -1,
@@ -128,9 +133,17 @@ export const CalculateBugfree = () => {
           columns={providersColumns}
           data={providersData}
           title='Providers Reliability - Global goal: 98%'
+          actions={[
+            {
+              icon: 'edit',
+              tooltip: 'Edit',
+              onClick: (event, rowData) => handleRedirect({ ...rowData }),
+            },
+          ]}
           options={{
+            actionsColumnIndex: -1,
             rowStyle: (evt, rowData) => ({
-              backgroundColor: parseFloat(evt.reliability) < 98 ? '#FF9999' : '#BDFFA4',
+              backgroundColor: parseFloat(evt.reliability) < 95 ? '#FF9999' : '#BDFFA4',
             }),
           }}
         />
