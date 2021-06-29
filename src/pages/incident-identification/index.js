@@ -21,7 +21,7 @@ function IncidentIdentification() {
       id: incidentNumberRef.current.value,
       description: incidentDescriptionRef.current.value,
       fk_project: projectRef.current.value,
-      fk_severity: projectRef.current.value,
+      fk_severity: severityRef.current.value,
     };
 
     const response = await apiConnection.post('/incident', payload);

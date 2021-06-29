@@ -87,7 +87,7 @@ function Providers() {
                 <option
                   key={index}
                   value={item.id}
-                  selected={location.state?.name ? item.name === location.state.name : false}
+                  defaultValue={location.state?.name ? item.name === location.state.name : false}
                 >
                   {item.name}
                 </option>

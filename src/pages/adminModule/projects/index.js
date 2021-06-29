@@ -95,7 +95,7 @@ function Projects() {
                 <option
                   key={index}
                   value={project.id}
-                  selected={location.state?.name ? project.name === location.state.name : false}
+                  defaultValue={location.state?.name ? project.name === location.state.name : false}
                 >
                   {project.name}
                 </option>
