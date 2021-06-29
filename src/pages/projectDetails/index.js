@@ -19,11 +19,11 @@ const detailedColumns = [
 
 function ProjectDetails() {
   const location = useLocation();
-  const percentage = location.state.reliability_percentage;
+  const percentage = !!location.state.reliability_percentage ? location.state.reliability_percentage : 100;
   const reachedProportionProject = parseFloat(percentage).toPrecision(3);
   const text = reachedProportionProject > 100 ? 100 : reachedProportionProject;
 
-  const providerPercentage = location.state.providerReliability;
+  const providerPercentage = !!location.state.providerReliability ? location.state.providerReliability : 100;
   const reachedProportionProvider = parseFloat(providerPercentage).toPrecision(3);
   const textProvider = reachedProportionProvider > 100 ? 100 : reachedProportionProvider;
 
