@@ -58,7 +58,7 @@ export const CalculateBugfree = () => {
           hours_effort,
           id,
           name,
-          reliability_percentage,
+          reliability_percentage: reliability_percentage || 100,
           responsible,
           tableData: { id },
         };
@@ -102,7 +102,12 @@ export const CalculateBugfree = () => {
         const { id, name, reliability_percentage } = provider;
         const projects = projectsData.filter((project) => project.fk_provider === id);
 
-        providersAndProjects.push({ id, name, reliability_percentage, projects: projects.length });
+        providersAndProjects.push({
+          id,
+          name,
+          reliability_percentage: reliability_percentage || 100,
+          projects: projects.length,
+        });
       });
     }
 
