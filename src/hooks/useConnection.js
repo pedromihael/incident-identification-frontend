@@ -5,7 +5,7 @@ dotenv.config();
 
 export const useConnection = () => {
   const connection = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:3003',
+    baseURL: 'https://incident-identification-api.herokuapp.com',
   });
 
   return connection;
