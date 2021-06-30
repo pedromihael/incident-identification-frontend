@@ -67,4 +67,15 @@ export const RegisterResult = styled.div`
   color: ${(props) => (props.success ? '#3Cb043' : '#FF0000')};
   font-size: 12px;
   margin-top: 16px;
+  margin-bottom: 16px;
+`;
+
+export const Select = styled.select`
+  padding: 10px 5px;
+  border: none;
+  border-bottom: 1px solid #313131;
+  width: 520px;
+  background: #dadada;
+  border-radius: 8px;
+  margin-bottom: 10px;
 `;

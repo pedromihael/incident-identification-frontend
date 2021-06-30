@@ -11,13 +11,12 @@ const projectsColumns = [
   { title: 'Responsible', field: 'responsible' },
   { title: 'Effort (hours)', field: 'hours_effort' },
   { title: 'Incidents', field: 'totalIncidents' },
-  { title: 'IT Service Provider', field: 'fk_provider' },
-  { title: 'Reliability (%)', field: 'reliability_percentage' },
+  { title: 'IT Service Provider', field: 'provider' },
+  { title: 'Proj. Reliability (%)', field: 'reliability_percentage' },
 ];
 
 const providersColumns = [
   { title: 'Provider', field: 'name' },
-  { title: 'Id. number', field: 'id' },
   { title: 'Total projects', field: 'projects' },
   { title: 'Reliability (%)', field: 'reliability_percentage' },
 ];
@@ -28,6 +27,22 @@ export const CalculateBugfree = () => {
 
   const [projectsData, setProjectsData] = useState([]);
   const [providersData, setProvidersData] = useState([]);
+
+  const [projectRel, setProjectRel] = useState(0);
+  const [providerRel, setProviderRel] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const rels = await apiConnection('/reliability');
+      if (rels.data) {
+        const proj = rels.data.find((rel) => rel.name === 'Project');
+        proj.meta_percent && setProjectRel(proj.meta_percent);
+
+        const prov = rels.data.find((rel) => rel.name === 'Provider');
+        prov.meta_percent && setProviderRel(prov.meta_percent);
+      }
+    })();
+  }, []);
 
   const handleRedirect = useCallback((data) => {
     history.push({
@@ -51,7 +66,17 @@ export const CalculateBugfree = () => {
       const projects = projectsResult.data;
 
       for await (const project of projects) {
-        const { fk_provider, hours_effort, id, name, reliability_percentage, responsible } = project;
+        const {
+          fk_provider,
+          hours_effort,
+          id,
+          name,
+          reliability_percentage,
+          responsible,
+          provider_id,
+          provider,
+          provider_reliability_percentage,
+        } = project;
 
         const data = {
           fk_provider,
@@ -61,6 +86,11 @@ export const CalculateBugfree = () => {
           reliability_percentage: reliability_percentage || 100,
           responsible,
           tableData: { id },
+          provider_id,
+          provider,
+          provider_reliability_percentage,
+          projectRel,
+          providerRel,
         };
 
         const providersResult = await apiConnection.get(`/provider/${fk_provider}`);
@@ -91,25 +121,20 @@ export const CalculateBugfree = () => {
     setProjectsData(projectsAndIncidents);
   }, []);
 
-  const handleProvidersFetch = useCallback(async () => {
-    const providersResult = await apiConnection('/provider');
+  const handleProvidersFetch = useCallback(() => {
     const providersAndProjects = [];
 
-    if (providersResult.data) {
-      const providers = providersResult.data;
+    projectsData.forEach((projectData) => {
+      const { provider_id, provider, provider_reliability_percentage } = projectData;
+      const projects = projectsData.filter((project) => project.fk_provider === provider_id);
 
-      providers.forEach((provider) => {
-        const { id, name, reliability_percentage } = provider;
-        const projects = projectsData.filter((project) => project.fk_provider === id);
-
-        providersAndProjects.push({
-          id,
-          name,
-          reliability_percentage: reliability_percentage || 100,
-          projects: projects.length,
-        });
+      providersAndProjects.push({
+        id: provider_id,
+        name: provider,
+        reliability_percentage: provider_reliability_percentage || 100,
+        projects: projects.length,
       });
-    }
+    });
 
     setProvidersData(providersAndProjects);
   }, [projectsData]);
@@ -117,9 +142,12 @@ export const CalculateBugfree = () => {
   useEffect(() => {
     (async () => {
       await handleProjectsFetch();
-      await handleProvidersFetch();
     })();
   }, []);
+
+  useEffect(() => {
+    handleProvidersFetch();
+  }, [projectsData]);
 
   return (
     <>
@@ -128,7 +156,7 @@ export const CalculateBugfree = () => {
         <MaterialTable
           columns={projectsColumns}
           data={projectsData}
-          title='Projects Reliability - Global goal: 95%'
+          title={`Projects Reliability - Global goal: ${projectRel}%`}
           actions={[
             {
               icon: 'north_east',
@@ -144,14 +172,14 @@ export const CalculateBugfree = () => {
           options={{
             actionsColumnIndex: -1,
             rowStyle: (evt, rowData) => ({
-              backgroundColor: parseFloat(evt.reliability) < 95 ? '#FF9999' : '#BDFFA4',
+              backgroundColor: parseFloat(evt.reliability) < projectRel ? '#FF9999' : '#BDFFA4',
             }),
           }}
         />
         <MaterialTable
           columns={providersColumns}
           data={providersData}
-          title='Providers Reliability - Global goal: 98%'
+          title={`It Service Providers Reliability - Global goal: ${providerRel}%`}
           actions={[
             {
               icon: 'edit',
@@ -162,7 +190,7 @@ export const CalculateBugfree = () => {
           options={{
             actionsColumnIndex: -1,
             rowStyle: (evt, rowData) => ({
-              backgroundColor: parseFloat(evt.reliability) < 95 ? '#FF9999' : '#BDFFA4',
+              backgroundColor: parseFloat(evt.reliability) < providerRel ? '#FF9999' : '#BDFFA4',
             }),
           }}
         />

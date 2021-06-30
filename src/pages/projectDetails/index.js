@@ -19,6 +19,7 @@ const detailedColumns = [
 
 function ProjectDetails() {
   const location = useLocation();
+
   const percentage = !!location.state.reliability_percentage ? location.state.reliability_percentage : 100;
   const reachedProportionProject = parseFloat(percentage).toPrecision(3);
   const text = reachedProportionProject > 100 ? 100 : reachedProportionProject;
@@ -27,8 +28,8 @@ function ProjectDetails() {
   const reachedProportionProvider = parseFloat(providerPercentage).toPrecision(3);
   const textProvider = reachedProportionProvider > 100 ? 100 : reachedProportionProvider;
 
-  const colorByReachedProportion = text < 95 ? '#FF9999' : '#3Cb043';
-  const colorByReachedProportionProvider = textProvider < 98 ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportion = text < location.state.projectRel ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportionProvider = textProvider < location.state.providerRel ? '#FF9999' : '#3Cb043';
 
   const sorted = useMemo(() => {
     const { incidentsByProject } = location.state;
@@ -89,7 +90,9 @@ function ProjectDetails() {
                 })}
               />
             </CircularProgressbarWrapper>
-            <span>Expected: 95% - Calculated: {percentage}%</span>
+            <span>
+              Expected: {location.state.projectRel}% - Calculated: {percentage}%
+            </span>
           </ReliabilityWrapper>
           <ReliabilityWrapper>
             <h4>It Service Provider Reliability</h4>
@@ -103,7 +106,9 @@ function ProjectDetails() {
                 })}
               />
             </CircularProgressbarWrapper>
-            <span>Expected: 98% - Calculated: {providerPercentage}%</span>
+            <span>
+              Expected: {location.state.providerRel}% - Calculated: {providerPercentage}%
+            </span>
           </ReliabilityWrapper>
         </FirstRow>
         <SecondRow>

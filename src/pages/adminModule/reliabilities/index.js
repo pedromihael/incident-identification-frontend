@@ -7,7 +7,7 @@ import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title
 const fields = [
   {
     id: 'name',
-    name: 'Reliability target',
+    name: 'Reliability target name',
   },
   {
     id: 'meta_percent',
