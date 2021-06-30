@@ -36,10 +36,10 @@ export const CalculateBugfree = () => {
       const rels = await apiConnection('/reliability');
       if (rels.data) {
         const proj = rels.data.find((rel) => rel.name === 'Project');
-        proj.meta_percent && setProjectRel(proj.meta_percent);
+        proj && setProjectRel(proj.meta_percent);
 
         const prov = rels.data.find((rel) => rel.name === 'Provider');
-        prov.meta_percent && setProviderRel(prov.meta_percent);
+        prov && setProviderRel(prov.meta_percent);
       }
     })();
   }, []);
