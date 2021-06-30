@@ -32,12 +32,57 @@ const headers = [
     activity: 3,
     image: header1,
   },
+
   {
     activity: 4,
-    image: header2,
+    image: header1,
   },
+
   {
     activity: 5,
+    image: header1,
+  },
+
+  {
+    activity: 6,
+    image: header1,
+  },
+
+  {
+    activity: 7,
+    image: header1,
+  },
+
+  {
+    activity: 8,
+    image: header1,
+  },
+
+  {
+    activity: 3,
+    image: header1,
+  },
+
+  {
+    activity: 9,
+    image: header1,
+  },
+  {
+    activity: 10,
+    image: header2,
+  },
+
+  {
+    activity: 11,
+    image: header1,
+  },
+
+  {
+    activity: 12,
+    image: header1,
+  },
+  {
+    activity: 13,
     image: header3,
   },
 ];
