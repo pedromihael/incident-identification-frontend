@@ -261,6 +261,7 @@ function Home() {
   }, []);
 
   const changeCursor = useCallback((activity) => {
+    console.log('activity', activity);
     const area = document.getElementById(activity);
     area.style.cursor = 'pointer';
   }, []);
@@ -387,7 +388,7 @@ function Home() {
             id='13'
             alt='calculate-bugfree'
             title='calculate-bugfree'
-            coords='681,588,821,679'
+            coords='526,972,668,1059'
             shape='rect'
             onClick={() => toggleModal(13)}
             onMouseOver={() => changeCursor(13)}

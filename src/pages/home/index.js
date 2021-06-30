@@ -29,6 +29,9 @@ export default function Home() {
           <Link to='/reliability'>
             <Button>Set Reliability Goals</Button>
           </Link>
+          <Link to='/calculate-bugfree'>
+            <Button>See Project Details</Button>
+          </Link>
         </ButtonGroup>
         <p>Or manage important info</p>
         <ButtonGroup>
