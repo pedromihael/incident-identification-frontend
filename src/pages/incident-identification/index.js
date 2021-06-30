@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, createRef } from 'react';
+import React, { useCallback, useEffect, useState, createRef, useMemo } from 'react';
 import { useConnection } from '../../hooks/useConnection';
 import { Header } from '../../components/Header';
 import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from './styles';
@@ -7,6 +7,8 @@ function IncidentIdentification() {
   const apiConnection = useConnection();
 
   const [projects, setProjects] = useState([]);
+  const [incidents, setIncidents] = useState([]);
+
   const [registerSucess, setRegisterSucess] = useState({
     text: '',
   });
@@ -36,11 +38,31 @@ function IncidentIdentification() {
   useEffect(() => {
     (async () => {
       const response = await apiConnection.get('/project');
+
       if (response.data) {
         setProjects(response.data);
       }
+
+      const incidentsResponse = await apiConnection.get('/incidents');
+      console.log('incidentsResponse');
+
+      if (incidentsResponse.data) {
+        setIncidents(incidentsResponse.data);
+      }
     })();
   }, []);
+
+  const lastIncident = useMemo(() => {
+    const last = incidents.length ? incidents[incidents.length - 1].id : 'none';
+    const last2 =
+      incidentNumberRef.current &&
+      incidentNumberRef.current.value !== last &&
+      incidentNumberRef.current.value !== 'none'
+        ? incidentNumberRef.current.value
+        : last;
+    return last2;
+  }, [incidents, incidentNumberRef]);
+
   return (
     <>
       <Header title='Incident Identification' />
@@ -48,7 +70,7 @@ function IncidentIdentification() {
         <Title>Fill the fields to register an incident in a software project</Title>
         <FormContainer>
           <FormItem>
-            <Label htmlFor='incident-number'>Incident number</Label>
+            <Label htmlFor='incident-number'>Incident number - Last incident: {lastIncident}</Label>
             <Input ref={incidentNumberRef} name='incident-number' placeholder='Enter a value...' />
 
             <Label htmlFor='incident-description'>Incident description</Label>

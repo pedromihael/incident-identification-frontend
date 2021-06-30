@@ -67,7 +67,7 @@ function Reliability() {
         )}
         <FormContainer>
           <FormItem>
-            <Label htmlFor='field'>New Target (Project and Provider are already set)</Label>
+            <Label htmlFor='field'>New Target</Label>
             <Input ref={fieldRef} name='field' placeholder='Enter a value...' />
             <Label htmlFor='value'>New Value</Label>
             <Input ref={valueRef} name='value' placeholder='Enter a value...' />
