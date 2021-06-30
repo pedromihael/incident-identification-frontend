@@ -25,24 +25,17 @@ export const CalculateBugfree = () => {
   const history = useHistory();
   const apiConnection = useConnection();
 
-  const [projectsData, setProjectsData] = useState([]);
-  const [providersData, setProvidersData] = useState([]);
+  const storedProjects = localStorage.getItem('storedProjects');
+  const parsedStoredProjects = storedProjects ? JSON.parse(storedProjects) : [];
+
+  const storedProviders = localStorage.getItem('storedProviders');
+  const parsedStoredProviders = storedProjects ? JSON.parse(storedProviders) : [];
+
+  const [projectsData, setProjectsData] = useState(parsedStoredProjects);
+  const [providersData, setProvidersData] = useState(parsedStoredProviders);
 
   const [projectRel, setProjectRel] = useState(0);
   const [providerRel, setProviderRel] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      const rels = await apiConnection('/reliability');
-      if (rels.data) {
-        const proj = rels.data.find((rel) => rel.name === 'Project');
-        proj && setProjectRel(proj.meta_percent);
-
-        const prov = rels.data.find((rel) => rel.name === 'Provider');
-        prov && setProviderRel(prov.meta_percent);
-      }
-    })();
-  }, []);
 
   const handleRedirect = useCallback((data) => {
     history.push({
@@ -60,6 +53,8 @@ export const CalculateBugfree = () => {
 
   const handleProjectsFetch = useCallback(async () => {
     const projectsResult = await apiConnection.get('/project');
+
+    console.log('projectsResult', projectsResult);
 
     const projectsAndIncidents = [];
     if (projectsResult.data) {
@@ -89,8 +84,6 @@ export const CalculateBugfree = () => {
           provider_id,
           provider,
           provider_reliability_percentage,
-          projectRel,
-          providerRel,
         };
 
         const providersResult = await apiConnection.get(`/provider/${fk_provider}`);
@@ -141,6 +134,29 @@ export const CalculateBugfree = () => {
 
   useEffect(() => {
     (async () => {
+      const rels = await apiConnection('/reliability');
+      if (rels.data) {
+        const proj = rels.data.find((rel) => rel.name === 'Project');
+        proj && setProjectRel(proj.meta_percent);
+
+        const prov = rels.data.find((rel) => rel.name === 'Provider');
+        prov && setProviderRel(prov.meta_percent);
+
+        localStorage.setItem('projRel', proj.meta_percent);
+        localStorage.setItem('provRel', prov.meta_percent);
+      }
+    })();
+
+    const newProjectsData = projectsData.map((data) => {
+      return Object.assign(data, { projectRel, providerRel });
+    });
+
+    storedProjects !== JSON.stringify(newProjectsData) &&
+      localStorage.setItem('storedProjects', JSON.stringify(newProjectsData));
+  }, [projectsData]);
+
+  useEffect(() => {
+    (async () => {
       await handleProjectsFetch();
     })();
   }, []);
@@ -148,6 +164,11 @@ export const CalculateBugfree = () => {
   useEffect(() => {
     handleProvidersFetch();
   }, [projectsData]);
+
+  useEffect(() => {
+    localStorage.setItem('storedProjects', JSON.stringify(projectsData));
+    localStorage.setItem('storedProviders', JSON.stringify(providersData));
+  }, [projectsData, providersData]);
 
   return (
     <>

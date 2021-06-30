@@ -30,8 +30,12 @@ export const ReliabilityWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  h4 {
+  h5 {
     margin: 12px 0;
+  }
+
+  h4 {
+    margin: 0;
   }
 
   span {

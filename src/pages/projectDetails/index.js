@@ -20,6 +20,9 @@ const detailedColumns = [
 function ProjectDetails() {
   const location = useLocation();
 
+  const provRel = localStorage.getItem('provRel');
+  const projRel = localStorage.getItem('projRel');
+
   const percentage = !!location.state.reliability_percentage ? location.state.reliability_percentage : 100;
   const reachedProportionProject = parseFloat(percentage).toPrecision(3);
   const text = reachedProportionProject > 100 ? 100 : reachedProportionProject;
@@ -28,8 +31,8 @@ function ProjectDetails() {
   const reachedProportionProvider = parseFloat(providerPercentage).toPrecision(3);
   const textProvider = reachedProportionProvider > 100 ? 100 : reachedProportionProvider;
 
-  const colorByReachedProportion = text < location.state.projectRel ? '#FF9999' : '#3Cb043';
-  const colorByReachedProportionProvider = textProvider < location.state.providerRel ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportion = text < parseFloat(projRel) ? '#FF9999' : '#3Cb043';
+  const colorByReachedProportionProvider = textProvider < parseFloat(provRel) ? '#FF9999' : '#3Cb043';
 
   const sorted = useMemo(() => {
     const { incidentsByProject } = location.state;
@@ -80,6 +83,7 @@ function ProjectDetails() {
         <FirstRow>
           <ReliabilityWrapper>
             <h4>Project Reliability</h4>
+            <h5>{location.state.name}</h5>
             <CircularProgressbarWrapper>
               <CircularProgressbar
                 value={text}
@@ -91,11 +95,12 @@ function ProjectDetails() {
               />
             </CircularProgressbarWrapper>
             <span>
-              Expected: {location.state.projectRel}% - Calculated: {percentage}%
+              Expected: {projRel}% - Calculated: {percentage}%
             </span>
           </ReliabilityWrapper>
           <ReliabilityWrapper>
             <h4>It Service Provider Reliability</h4>
+            <h5>{location.state.provider}</h5>
             <CircularProgressbarWrapper>
               <CircularProgressbar
                 value={textProvider}
@@ -107,7 +112,7 @@ function ProjectDetails() {
               />
             </CircularProgressbarWrapper>
             <span>
-              Expected: {location.state.providerRel}% - Calculated: {providerPercentage}%
+              Expected: {provRel}% - Calculated: {providerPercentage}%
             </span>
           </ReliabilityWrapper>
         </FirstRow>
