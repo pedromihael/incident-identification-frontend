@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, createRef } from 'react';
 import { useConnection } from '../../../hooks/useConnection';
 import { AdminHeader } from '../../../components/AdminHeader';
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from '../styles';
 
 function Incidents() {
@@ -10,6 +11,21 @@ function Incidents() {
   const [registerSucess, setRegisterSucess] = useState({
     text: '',
   });
+
+  const notify = useCallback(() => {
+    if (registerSucess.text !== '') {
+      if (registerSucess.success) {
+        return toast.success(registerSucess.text, { autoClose: 3000, pauseOnHover: false });
+      } else {
+        return toast.error(registerSucess.text, { autoClose: 3000, pauseOnHover: false });
+      }
+    }
+  }, [registerSucess]);
+
+  useEffect(() => {
+    notify();
+    incidentDescRef.current.value = '';
+  }, [registerSucess]);
 
   const incidentIdRef = createRef({});
   const incidentDescRef = createRef({});
@@ -31,7 +47,7 @@ function Incidents() {
 
     setTimeout(() => {
       setRegisterSucess({ text: '' });
-    }, 2000);
+    }, 3000);
   }, [incidentIdRef, incidentDescRef]);
 
   const handleDeletion = useCallback(async () => {
@@ -66,6 +82,7 @@ function Incidents() {
 
   return (
     <>
+      <ToastContainer />
       <AdminHeader title='Edit Incidents' />
       <Container>
         <Title>Edit incidents information</Title>
@@ -88,9 +105,6 @@ function Incidents() {
           <Button kind='delete' onClick={handleDeletion}>
             Delete
           </Button>
-          <RegisterResult success={registerSucess.success}>
-            <span>{registerSucess.text}</span>
-          </RegisterResult>
         </FormContainer>
       </Container>
     </>

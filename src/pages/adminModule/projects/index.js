@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState, createRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useConnection } from '../../../hooks/useConnection';
 import { AdminHeader } from '../../../components/AdminHeader';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title, RegisterResult } from '../styles';
 
 const fields = [
@@ -31,6 +33,21 @@ function Projects() {
   const idRef = createRef({});
   const fieldRef = createRef({});
   const valueRef = createRef({});
+
+  const notify = useCallback(() => {
+    if (registerSucess.text !== '') {
+      if (registerSucess.success) {
+        return toast.success(registerSucess.text, { autoClose: 3000, pauseOnHover: false });
+      } else {
+        return toast.error(registerSucess.text, { autoClose: 3000, pauseOnHover: false });
+      }
+    }
+  }, [registerSucess]);
+
+  useEffect(() => {
+    notify();
+    valueRef.current.value = '';
+  }, [registerSucess]);
 
   const handleRegistration = useCallback(async () => {
     const payload = {
@@ -84,6 +101,7 @@ function Projects() {
 
   return (
     <>
+      <ToastContainer />
       <AdminHeader title='Edit Projects' />
       <Container>
         <Title>Edit projects information</Title>
@@ -118,9 +136,6 @@ function Projects() {
           <Button kind='delete' onClick={handleDeletion}>
             Delete
           </Button>
-          <RegisterResult success={registerSucess.success}>
-            <span>{registerSucess.text}</span>
-          </RegisterResult>
         </FormContainer>
       </Container>
     </>

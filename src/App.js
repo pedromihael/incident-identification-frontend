@@ -17,6 +17,7 @@ import Providers from './pages/adminModule/providers';
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import Reliabilities from './pages/adminModule/reliabilities';
 import Severities from './pages/adminModule/severities';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
   return (
