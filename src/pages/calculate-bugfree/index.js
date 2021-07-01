@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Header } from '../../components/Header';
 import MaterialTable from 'material-table';
 
-import { Container } from './styles';
+import { Container, Button } from './styles';
 
 const projectsColumns = [
   { title: 'Project', field: 'name' },
@@ -120,7 +120,6 @@ export const CalculateBugfree = () => {
     projectsData.forEach((projectData) => {
       const { provider_id, provider, providerReliability } = projectData;
       const projects = projectsData.filter((project) => project.fk_provider === provider_id);
-      console.log('projectData', projectData);
       providersAndProjects.push({
         id: provider_id,
         name: provider,
@@ -217,6 +216,7 @@ export const CalculateBugfree = () => {
             }),
           }}
         />
+        <Button onClick={() => history.push('/workflow')}>Back to workflow</Button>
       </Container>
     </>
   );
