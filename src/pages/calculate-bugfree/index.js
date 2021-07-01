@@ -70,7 +70,7 @@ export const CalculateBugfree = () => {
           responsible,
           provider_id,
           provider,
-          provider_reliability_percentage,
+          providerReliability,
         } = project;
 
         const data = {
@@ -83,7 +83,7 @@ export const CalculateBugfree = () => {
           tableData: { id },
           provider_id,
           provider,
-          provider_reliability_percentage,
+          providerReliability,
         };
 
         const providersResult = await apiConnection.get(`/provider/${fk_provider}`);
@@ -118,13 +118,13 @@ export const CalculateBugfree = () => {
     const providersAndProjects = [];
 
     projectsData.forEach((projectData) => {
-      const { provider_id, provider, provider_reliability_percentage } = projectData;
+      const { provider_id, provider, providerReliability } = projectData;
       const projects = projectsData.filter((project) => project.fk_provider === provider_id);
-
+      console.log('projectData', projectData);
       providersAndProjects.push({
         id: provider_id,
         name: provider,
-        reliability_percentage: provider_reliability_percentage || 100,
+        reliability_percentage: providerReliability || 100,
         projects: projects.length,
       });
     });
@@ -192,9 +192,11 @@ export const CalculateBugfree = () => {
           ]}
           options={{
             actionsColumnIndex: -1,
-            rowStyle: (evt, rowData) => ({
-              backgroundColor: parseFloat(evt.reliability) < projectRel ? '#FF9999' : '#BDFFA4',
-            }),
+            rowStyle: (evt, rowData) => {
+              return {
+                backgroundColor: parseFloat(evt.reliability_percentage) < projectRel ? '#FF9999' : '#BDFFA4',
+              };
+            },
           }}
         />
         <MaterialTable
@@ -211,7 +213,7 @@ export const CalculateBugfree = () => {
           options={{
             actionsColumnIndex: -1,
             rowStyle: (evt, rowData) => ({
-              backgroundColor: parseFloat(evt.reliability) < providerRel ? '#FF9999' : '#BDFFA4',
+              backgroundColor: parseFloat(evt.reliability_percentage) < providerRel ? '#FF9999' : '#BDFFA4',
             }),
           }}
         />
