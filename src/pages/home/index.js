@@ -30,7 +30,7 @@ export default function Home() {
             <Button>Set Reliability Goals</Button>
           </Link>
           <Link to='/calculate-bugfree'>
-            <Button>See Project Details</Button>
+            <Button>See Reliability Details</Button>
           </Link>
         </ButtonGroup>
         <p>Or manage important info</p>

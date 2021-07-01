@@ -4,13 +4,13 @@ export const Container = styled.section`
   height: 100vh;
   width: 100vw;
   display: flex;
-  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 export const LeftContainer = styled.section`
-  height: 100vh;
   width: 55vw;
   padding: 24px 42px;
+  margin-bottom: 48px;
 
   h1 {
     font-size: 40px;
@@ -30,6 +30,17 @@ export const LeftContainer = styled.section`
 export const RightContainer = styled.section`
   height: 100vh;
   width: 45vw;
+  position: relative;
+
+  img {
+    position: absolute;
+    right: -210px;
+    height: 100vh;
+  }
+
+  @media (max-width: 1100px) {
+    display: none;
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -39,6 +50,10 @@ export const ButtonGroup = styled.div`
   grid-template-columns: repeat(4, 1fr);
   align-items: flex-start;
   gap: 12px;
+
+  @media (max-width: 1135px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const Button = styled.button`
