@@ -85,6 +85,18 @@ const headers = [
     activity: 13,
     image: header3,
   },
+  {
+    activity: 14,
+    image: header3,
+  },
+  {
+    activity: 15,
+    image: header3,
+  },
+  {
+    activity: 16,
+    image: header3,
+  },
 ];
 
 export const Modal = (props) => {

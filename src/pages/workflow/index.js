@@ -246,6 +246,54 @@ function Home() {
         description:
           'This activity aims to define a reliability goal to be used in the software projects and IT software providers evaluation. It will also be used in the reliability formula.',
       },
+      {
+        activity: 14,
+        name: 'Defining Weight Per Severity',
+        info: [
+          { key: 'Input Criteria', value: 'N/A' },
+          { key: 'Ouput Criteria', value: 'Database updated' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'IT Management Team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
+        ],
+        redirection: '/admin/severities',
+        description:
+          'This activity aims to define a weight for each incident severity to be used in the reliability formula.',
+      },
+      {
+        activity: 15,
+        name: 'Calculating bug-free projects rate',
+        info: [
+          { key: 'Input Criteria', value: 'Incidents list and severities.' },
+          { key: 'Ouput Criteria', value: 'Database updated' },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'IT Management Team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
+        ],
+        redirection: '/admin/reliabilities',
+        description:
+          'This activity aims to calculate the reliability rate for each software project and each IT service provider.',
+      },
+      {
+        activity: 16,
+        name: 'Reporting dashboard',
+        info: [
+          { key: 'Input Criteria', value: 'Reliability rates' },
+          {
+            key: 'Ouput Criteria',
+            value:
+              'Diagnosis of software projects and IT software providers that failed to achieve the established goals.',
+          },
+          { key: 'Responsible', value: 'Central organization' },
+          { key: 'Participants', value: 'IT Management Team' },
+          { key: 'Required Artifacts', value: 'N/A' },
+          { key: 'Produced Artifacts', value: 'N/A' },
+        ],
+        description:
+          'This activity aims to measure the reliability rates of the software project and the IT service provider. It provides inputs to make decisions related to the governance of the technological platform.',
+      },
     ];
   }, []);
 
@@ -267,7 +315,7 @@ function Home() {
   }, []);
 
   const hasButton = useMemo(() => {
-    return activity === 10 || activity === 13;
+    return activity === 10 || activity >= 13;
   }, [activity]);
 
   return (
@@ -392,6 +440,33 @@ function Home() {
             shape='rect'
             onClick={() => toggleModal(13)}
             onMouseOver={() => changeCursor(13)}
+          />
+          <area
+            id='14'
+            alt='weight-per-severity'
+            title='weight-per-severity'
+            coords='232,985,361,1056'
+            shape='rect'
+            onClick={() => toggleModal(14)}
+            onMouseOver={() => changeCursor(14)}
+          />
+          <area
+            id='15'
+            alt='bug-free'
+            title='bug-free'
+            coords='380,985,509,1056'
+            shape='rect'
+            onClick={() => toggleModal(15)}
+            onMouseOver={() => changeCursor(15)}
+          />
+          <area
+            id='16'
+            alt='reporting-dashboard'
+            title='reporting-dashboard'
+            coords='681,985,809,1056'
+            shape='rect'
+            onClick={() => toggleModal(16)}
+            onMouseOver={() => changeCursor(16)}
           />
           <area
             id='7'
