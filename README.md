@@ -1,4 +1,16 @@
 # Incident Idenfication Tool
+
+## Dependencies
+
+You will need:
+
+- [x] [Node JS](https://nodejs.org/en/download/)
+
+Check installation running `npm --v`
+
+- [x] [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
+
+Check installation running `yarn -version`
 ## Available Scripts
 
 For first running, install all dependencies with:
