@@ -3,7 +3,7 @@ import { Container } from './styles';
 import { Modal } from '../../components/Modal';
 import { Header } from '../../components/Header';
 
-import flow from '../../assets/flow-resized.jpg';
+import flow from '../../assets/renamed.png';
 
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
