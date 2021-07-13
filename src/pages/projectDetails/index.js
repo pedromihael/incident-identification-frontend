@@ -82,7 +82,7 @@ function ProjectDetails() {
       <Container>
         <FirstRow>
           <ReliabilityWrapper>
-            <h4>Project Reliability</h4>
+            <h4>Project Confidence Level</h4>
             <h5>{location.state.name}</h5>
             <CircularProgressbarWrapper>
               <CircularProgressbar
@@ -99,7 +99,7 @@ function ProjectDetails() {
             </span>
           </ReliabilityWrapper>
           <ReliabilityWrapper>
-            <h4>It Service Provider Reliability</h4>
+            <h4>It Service Provider Confidence Level</h4>
             <h5>{location.state.provider}</h5>
             <CircularProgressbarWrapper>
               <CircularProgressbar

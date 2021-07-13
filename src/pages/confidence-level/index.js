@@ -4,7 +4,7 @@ import { useConnection } from '../../hooks/useConnection';
 import { Header } from '../../components/Header';
 import { Container, FormContainer, Input, Label, FormItem, Button, Title, RegisterResult, Select } from './styles';
 
-function Reliability() {
+function ConfidenceLevel() {
   const apiConnection = useConnection();
 
   const [showWarning, setShowWarning] = useState(false);
@@ -57,9 +57,9 @@ function Reliability() {
 
   return (
     <>
-      <Header title='Reliability goals' />
+      <Header title='Confidence Level goals' />
       <Container>
-        <Title>Fill the fields to set NEW reliability goals</Title>
+        <Title>Fill the fields to set NEW confidence level goals</Title>
         {showWarning && (
           <RegisterResult success={false}>
             <span>{`${reliabilityAlreadySet.name} is already set with ${reliabilityAlreadySet.meta_percent}%`}</span>
@@ -84,4 +84,4 @@ function Reliability() {
   );
 }
 
-export default Reliability;
+export default ConfidenceLevel;

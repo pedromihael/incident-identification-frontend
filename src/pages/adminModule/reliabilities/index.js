@@ -8,11 +8,11 @@ import { Container, FormContainer, Input, Label, FormItem, Select, Button, Title
 const fields = [
   {
     id: 'name',
-    name: 'Reliability target name',
+    name: 'Confidence Level target name',
   },
   {
     id: 'meta_percent',
-    name: 'Reliability global goal (%)',
+    name: 'Confidence Level global goal (%)',
   },
 ];
 

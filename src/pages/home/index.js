@@ -7,8 +7,10 @@ export default function Home() {
   return (
     <Container>
       <LeftContainer>
-        <h1>Welcome to Proprietary Software Ecosystem Reliability tool</h1>
-        <h3>Register projects and IT service providers, manage incidents and severities, and set reliability goals.</h3>
+        <h1>Welcome to Proprietary Software Ecosystem Confidence Level tool</h1>
+        <h3>
+          Register projects and IT service providers, manage incidents and severities, and set confidence level goals.
+        </h3>
         <p>Choose the overview option</p>
         <ButtonGroup>
           <Link to='/workflow'>
@@ -26,11 +28,11 @@ export default function Home() {
           <Link to='/incident-identification'>
             <Button>Log an Incident</Button>
           </Link>
-          <Link to='/reliability'>
-            <Button>Set Reliability Goals</Button>
+          <Link to='/confidence-level'>
+            <Button>Set Confidence Level Goals</Button>
           </Link>
           <Link to='/calculate-bugfree'>
-            <Button>See Reliability Details</Button>
+            <Button>See Confidence Level Details</Button>
           </Link>
         </ButtonGroup>
         <p>Or manage important info</p>

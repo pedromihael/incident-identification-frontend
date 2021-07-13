@@ -3,7 +3,7 @@ import Home from './pages/home';
 import Workflow from './pages/workflow';
 import IncidentIdentification from './pages/incident-identification';
 import SeverityRegistration from './pages/severity';
-import Reliability from './pages/reliability';
+import ConfidenceLevel from './pages/confidence-level';
 import RegisterProject from './pages/register-project';
 import RegisterProvider from './pages/register-provider';
 import GlobalStyles from './styles/global';
@@ -31,7 +31,7 @@ function App() {
           <Route path='/severity-registration' component={SeverityRegistration} />
           <Route exact path='/register-project' component={RegisterProject} />
           <Route exact path='/register-provider' component={RegisterProvider} />
-          <Route path='/reliability' component={Reliability} />
+          <Route path='/confidence-level' component={ConfidenceLevel} />
           <Route exact path='/calculate-bugfree' component={CalculateBugfree} />
           <Route exact path='/projects/:id/details' component={ProjectDetails} />
 

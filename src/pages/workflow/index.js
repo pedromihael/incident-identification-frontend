@@ -244,7 +244,7 @@ function Home() {
         ],
         redirection: '/calculate-bugfree',
         description:
-          'This activity aims to define a reliability goal to be used in the software projects and IT software providers evaluation. It will also be used in the reliability formula.',
+          'This activity aims to define a confidence level goal to be used in the software projects and IT software providers evaluation. It will also be used in the confidence level formula.',
       },
       {
         activity: 14,
@@ -259,7 +259,7 @@ function Home() {
         ],
         redirection: '/admin/severities',
         description:
-          'This activity aims to define a weight for each incident severity to be used in the reliability formula.',
+          'This activity aims to define a weight for each incident severity to be used in the confidence level formula.',
       },
       {
         activity: 15,
@@ -274,13 +274,13 @@ function Home() {
         ],
         redirection: '/admin/reliabilities',
         description:
-          'This activity aims to calculate the reliability rate for each software project and each IT service provider.',
+          'This activity aims to calculate the confidence level rate for each software project and each IT service provider.',
       },
       {
         activity: 16,
         name: 'Reporting dashboard',
         info: [
-          { key: 'Input Criteria', value: 'Reliability rates' },
+          { key: 'Input Criteria', value: 'Confidence Level rates' },
           {
             key: 'Ouput Criteria',
             value:
@@ -292,7 +292,7 @@ function Home() {
           { key: 'Produced Artifacts', value: 'N/A' },
         ],
         description:
-          'This activity aims to measure the reliability rates of the software project and the IT service provider. It provides inputs to make decisions related to the governance of the technological platform.',
+          'This activity aims to measure the confidence level rates of the software project and the IT service provider. It provides inputs to make decisions related to the governance of the technological platform.',
       },
     ];
   }, []);

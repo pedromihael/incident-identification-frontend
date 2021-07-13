@@ -20,8 +20,8 @@ const tabs = [
     pathname: '/severity-registration',
   },
   {
-    name: 'Set Reliability Goals',
-    pathname: '/reliability',
+    name: 'Set Confidence Level Goals',
+    pathname: '/confidence-level',
   },
 ];
 

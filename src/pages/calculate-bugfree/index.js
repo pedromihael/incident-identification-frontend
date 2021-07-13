@@ -12,13 +12,13 @@ const projectsColumns = [
   { title: 'Effort (hours)', field: 'hours_effort' },
   { title: 'Incidents', field: 'totalIncidents' },
   { title: 'IT Service Provider', field: 'provider' },
-  { title: 'Proj. Reliability (%)', field: 'reliability_percentage' },
+  { title: 'Proj. Confidence Level (%)', field: 'reliability_percentage' },
 ];
 
 const providersColumns = [
   { title: 'Provider', field: 'name' },
   { title: 'Total projects', field: 'projects' },
-  { title: 'Reliability (%)', field: 'reliability_percentage' },
+  { title: 'Confidence Level (%)', field: 'reliability_percentage' },
 ];
 
 export const CalculateBugfree = () => {
@@ -176,7 +176,7 @@ export const CalculateBugfree = () => {
         <MaterialTable
           columns={projectsColumns}
           data={projectsData}
-          title={`Projects Reliability - Global goal: ${projectRel}%`}
+          title={`Projects Confiodence Level - Global goal: ${projectRel}%`}
           actions={[
             {
               icon: 'north_east',
@@ -201,7 +201,7 @@ export const CalculateBugfree = () => {
         <MaterialTable
           columns={providersColumns}
           data={providersData}
-          title={`It Service Providers Reliability - Global goal: ${providerRel}%`}
+          title={`It Service Providers Confidence Level - Global goal: ${providerRel}%`}
           actions={[
             {
               icon: 'edit',
