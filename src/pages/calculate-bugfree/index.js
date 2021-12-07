@@ -176,7 +176,7 @@ export const CalculateBugfree = () => {
         <MaterialTable
           columns={projectsColumns}
           data={projectsData}
-          title={`Projects Confiodence Level - Global goal: ${projectRel}%`}
+          title={`Projects Confidence Level - Global goal: ${projectRel}%`}
           actions={[
             {
               icon: 'north_east',
