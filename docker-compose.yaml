@@ -1,0 +1,15 @@
+services:
+
+  frontend:
+    container_name: frontend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    
+    command: yarn start

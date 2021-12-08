@@ -4,21 +4,20 @@
 
 You will need:
 
-- [x] [Node JS](https://nodejs.org/en/download/)
+- [x] [Docker](https://www.docker.com/products/docker-desktop)
+- [x] [Docker-compose](https://docs.docker.com/compose/install/)
 
-Check installation running `npm --v`
+### Run
 
-- [x] [Yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
+```
+docker-compose up
+```
 
-Check installation running `yarn -version`
-## Available Scripts
+### Reset all data
 
-For first running, install all dependencies with:
-
-### `yarn`
-
-In the project directory, you can run to start the project:
-### `yarn start`
+```
+docker-compose down --volumes
+```
 
 ## Directories structure
 

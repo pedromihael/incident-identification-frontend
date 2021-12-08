@@ -38,6 +38,7 @@ export const CalculateBugfree = () => {
   const [providerRel, setProviderRel] = useState(0);
 
   const handleRedirect = useCallback((data) => {
+    console.log('data', data)
     history.push({
       pathname: `/projects/${data.id}/details`,
       state: data,
